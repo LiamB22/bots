@@ -7,7 +7,6 @@ import numpy as np
 from catanatron import Color
 from catanatron.players.weighted_random import WeightedRandomPlayer
 import catanatron.gym
-from stable_baselines3 import PPO
 from stable_baselines3.common.vec_env import DummyVecEnv
 from stable_baselines3.common.torch_layers import BaseFeaturesExtractor
 from sb3_contrib.common.wrappers import ActionMasker
@@ -15,19 +14,39 @@ from sb3_contrib.ppo_mask import MaskablePPO
 from sb3_contrib.common.maskable.policies import MaskableActorCriticPolicy
 
 def my_reward_function(game, p0_color):
-    state = game.state
+    
     winning_color = game.winning_color()
     if p0_color == winning_color:
-        return 100
+        return 1
     elif winning_color is not None:
-        return -100
+        return -1
 
+    state = game.state
+    reward = 0
     colour_index = state.color_to_index[p0_color]
     key = f"P{colour_index}_"
     current_vp = state.player_state[f"{key}ACTUAL_VICTORY_POINTS"]
-    reward = current_vp * 0.1
-    print(f"Calculated reward: {current_vp}")
+    longest_road_length = state.player_state[f"{key}LONGEST_ROAD_LENGTH"]
+
+    if current_vp > 0:
+        reward += 0.1
+    else:
+        reward += -0.1
+    if longest_road_length > 0:
+        reward += 0.1
+    else:
+        reward += -0.1
+    
     return reward
+
+# also look at catanatron_env.py and state.py
+
+# P0_WHEATS_IN_HAND, P0_WOODS_IN_HAND, ...
+    # P0_ROAD_BUILDINGS_IN_HAND, P0_KNIGHT_IN_HAND, ..., P0_VPS_IN_HAND
+    # P0_ROAD_BUILDINGS_PLAYABLE, P0_KNIGHT_PLAYABLE, ...
+    # P0_ROAD_BUILDINGS_PLAYED, P0_KNIGHT_PLAYED, ...
+
+    # P1_ROAD_BUILDINGS_PLAYED, P1_KNIGHT_PLAYED, ...
 
 def mask_fn(env) -> np.ndarray:
     valid_actions = env.unwrapped.get_valid_actions()
@@ -166,7 +185,7 @@ def train_sb3_agent_continue(save_path):
     env = DummyVecEnv([make_env])
     
     # Load the existing model and set its environment
-    model = MaskablePPO.load("bots/models/catanatron_ppo", env=env)
+    model = MaskablePPO.load("bots/models/PPOCNN/PPOCNN", env=env)
     
     # Add callback to monitor rewards
     from stable_baselines3.common.callbacks import EvalCallback
@@ -265,8 +284,8 @@ def eval_loop_gym(env, save_path):
         traceback.print_exc()
 
 def main():
-    file_name = "catanatron_ppo"
-    save_path = f"bots/models/{file_name}"
+    file_name = "PPOCNN"
+    save_path = f"bots/models/PPOCNN/{file_name}"
     
     # First, let's debug the environment
     print("=== Debugging Environment ===")
@@ -275,11 +294,11 @@ def main():
     env.close()
     
     # Then train with SB3
-    # print("\n=== Training with SB3 ===")
-    # train_sb3_agent(save_path)
+    print("\n=== Training with SB3 ===")
+    train_sb3_agent(save_path)
     
-    print("\n=== Continuing Training with SB3 ===")
-    train_sb3_agent_continue(save_path)  # Continue training
+    # print("\n=== Continuing Training with SB3 ===")
+    # train_sb3_agent_continue(save_path)  # Continue training
 
     # Evaluate using the proper method
     print("\n=== Evaluating ===")
