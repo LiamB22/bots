@@ -19,12 +19,13 @@ def main():
     eval_episodes = 100
     eval_timesteps = train_timesteps/100
     deterministic = False
-    representation = "mixed"
+    # representation = "mixed"
+    representation = "vector"
     # mixed or vector
     
     env, eval_env = make_envs(my_reward_function, mask_fn, representation)
 
-    test_output(env, eval_env)
+    # test_output(env, eval_env)
 
     # choose from possible models: mlp_ppo, cnn_ppo, combination_ppo
     if representation == "vector":
@@ -64,8 +65,10 @@ def main():
 
     eval_callback = MaskableEvalCallback(
         eval_env=eval_env,
-        mask_fn=mask_fn,  # Your mask function
+        mask_fn=mask_fn,
+        representation=representation,  # Pass the representation type
         best_model_save_path=save_path,
+        best_model_name=best_model_name,
         log_path=save_path,
         eval_freq=eval_timesteps,
         n_eval_episodes=eval_episodes,

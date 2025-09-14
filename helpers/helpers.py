@@ -30,9 +30,10 @@ def my_reward_function(game, p0_color):
     colour_index = state.color_to_index[p0_color]
     key = f"P{colour_index}_"
     played_dev_card = state.player_state[f"{key}HAS_PLAYED_DEVELOPMENT_CARD_IN_TURN"]
-
+    current_vp = state.player_state[f"{key}ACTUAL_VICTORY_POINTS"]
+    longest_road_length = state.player_state[f"{key}LONGEST_ROAD_LENGTH"]
     if played_dev_card:
-        reward += 5
+        reward += 1
 
     return reward
 
