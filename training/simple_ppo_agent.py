@@ -1,20 +1,8 @@
-import random
-import gymnasium
 import os
 import sys
 
-from catanatron import Color
-from catanatron.players.weighted_random import WeightedRandomPlayer
-import catanatron.gym
-
 from sb3_contrib.common.maskable.policies import MaskableActorCriticPolicy
-from sb3_contrib.common.wrappers import ActionMasker
 from sb3_contrib.ppo_mask import MaskablePPO
-
-from stable_baselines3.common.callbacks import EvalCallback
-from stable_baselines3.common.monitor import Monitor
-from stable_baselines3.common.callbacks import BaseCallback
-from stable_baselines3.common.callbacks import CallbackList
 
 current_dir = os.path.dirname(__file__)
 bots_root = os.path.join(current_dir, '..')
@@ -22,24 +10,21 @@ sys.path.append(bots_root)
 
 from helpers.helpers import my_reward_function, mask_fn, make_envs
 from networks.networks import CNN, COMBINED
+from training.mask_callback import MaskableEvalCallback
+from testing import test_output
 
 def main():
 
-    train_timesteps = 500_000
-    eval_episodes = 1
-    eval_timesteps = train_timesteps/100000
+    train_timesteps = 1_000_000
+    eval_episodes = 100
+    eval_timesteps = train_timesteps/100
     deterministic = False
     representation = "mixed"
     # mixed or vector
     
     env, eval_env = make_envs(my_reward_function, mask_fn, representation)
 
-    valid_actions = env.unwrapped.get_valid_actions()
-    # print(f"Total valid actions: {len(valid_actions)}")
-    # print("First 10 valid actions:", valid_actions[:10])
-    # print("Observation space:", env.observation_space)
-    # print("Board shape:", env.observation_space['board'].shape)
-    # print("Numeric shape:", env.observation_space['numeric'].shape)
+    test_output(env, eval_env)
 
     # choose from possible models: mlp_ppo, cnn_ppo, combination_ppo
     if representation == "vector":
@@ -77,14 +62,14 @@ def main():
     load_path = f"{save_path}/{best_model_name}"
     os.makedirs(save_path, exist_ok=True)
 
-    eval_callback = EvalCallback(
-        eval_env,
+    eval_callback = MaskableEvalCallback(
+        eval_env=eval_env,
+        mask_fn=mask_fn,  # Your mask function
         best_model_save_path=save_path,
         log_path=save_path,
         eval_freq=eval_timesteps,
-        deterministic=deterministic,
-        render=False,
         n_eval_episodes=eval_episodes,
+        deterministic=deterministic,
         verbose=2
     )
 
@@ -107,18 +92,19 @@ def main():
         max_grad_norm=0.5, # clips gradient to prevent exploding gradient problem
     )
 
-    # Learn and Load the best saved model
-    class DebugCallback(BaseCallback):
-        def _on_step(self):
-            if self.n_calls % 1000 == 0:
-                print(f"Step {self.n_calls}: Action={self.locals['actions']}, Reward={self.locals['rewards']}, Valid actions={self.locals['infos']}")
-            return True
-
     # Use multiple callbacks
-    callback = CallbackList([eval_callback, DebugCallback()])
-    model.learn(total_timesteps=train_timesteps, callback=callback)
-    # model.learn(total_timesteps=train_timesteps, callback=eval_callback)
-    best_model = MaskablePPO.load(load_path, env=env)
+    # callback = CallbackList([eval_callback, DebugCallback()])
+    # model.learn(total_timesteps=train_timesteps, callback=callback)
+    model.learn(total_timesteps=train_timesteps, callback=eval_callback)
+    eval_results = eval_callback.get_eval_results()
+    print(f"Completed {len(eval_results)} evaluation sessions")
+    
+    best_model_path = load_path + ".zip"
+    if os.path.exists(best_model_path):
+        best_model = MaskablePPO.load(load_path, env=env)
+        print("Best model loaded successfully")
+    else:
+        print("No best model found")
 
     print(model.policy)
 

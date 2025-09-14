@@ -51,21 +51,11 @@ def make_envs(my_reward_function, mask_fn, representation):
         "representation": representation,
     }
     
-    env = gymnasium.make(
-        "catanatron/Catanatron-v0",
-        config=config
-    )
+    env = gymnasium.make("catanatron/Catanatron-v0",config=config)
+    eval_env = gymnasium.make("catanatron/Catanatron-v0",config=config)
 
     # Init Environment and Model
-    env = ActionMasker(env, mask_fn)  # Wrap to enable masking
-    env = Monitor(env)
-
-    eval_env = gymnasium.make(
-        "catanatron/Catanatron-v0",
-        config=config
-    )
-
-    eval_env = ActionMasker(eval_env, mask_fn)  # Wrap to enable masking
-    eval_env = Monitor(eval_env)
+    env = Monitor(ActionMasker(env, mask_fn))
+    eval_env = Monitor(ActionMasker(eval_env, mask_fn))
 
     return env, eval_env
