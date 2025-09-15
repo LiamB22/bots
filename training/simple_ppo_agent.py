@@ -16,11 +16,11 @@ from testing import test_output
 def main():
 
     train_timesteps = 1_000_000
-    eval_episodes = 100
+    eval_episodes = 10
     eval_timesteps = train_timesteps/100
     deterministic = False
-    # representation = "mixed"
-    representation = "vector"
+    representation = "mixed"
+    # representation = "vector"
     # mixed or vector
     
     env, eval_env = make_envs(my_reward_function, mask_fn, representation)
