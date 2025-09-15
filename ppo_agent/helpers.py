@@ -33,9 +33,10 @@ def my_reward_function(game, p0_color):
             return rewards["lose"]
     
     state = game.state
+    decay = state.time
     colour_index = state.color_to_index[p0_color]
     key = f"P{colour_index}_"
-    
+
     played_dev_card = state.player_state[f"{key}HAS_PLAYED_DEVELOPMENT_CARD_IN_TURN"]
     current_vp = state.player_state[f"{key}ACTUAL_VICTORY_POINTS"]
     longest_road_length = state.player_state[f"{key}LONGEST_ROAD_LENGTH"]
@@ -81,6 +82,59 @@ def make_envs():
     eval_env = Monitor(ActionMasker(eval_env, mask_fn))
 
     return env, eval_env
+    
+def evaluate(eval_env, model, num_episodes=config.eval_episodes):
+    
+    total_rewards = []
+    wins = 0
+    losses = 0
+    
+    for episode in range(num_episodes):
+        observation, info = eval_env.reset()
+        done = False
+        episode_reward = 0
+        
+        while not done:
+            # Get action mask for current state
+            action_mask = mask_fn(eval_env)
+            
+            # Predict action with masking enabled
+            action, _ = model.predict(observation, action_masks=action_mask, deterministic=True)
+            
+            # Take the action
+            observation, reward, terminated, truncated, info = eval_env.step(action)
+            done = terminated or truncated
+            episode_reward += reward
+            
+            # Check if game ended with a win/loss
+            if done:
+                if reward > 0:  # Win
+                    wins += 1
+                elif reward < 0:  # Loss
+                    losses += 1
+        
+        total_rewards.append(episode_reward)
+    
+    eval_env.close()
+    
+    # Calculate evaluation metrics
+    metrics = {
+        'total_episodes': num_episodes,
+        'win_rate': wins / num_episodes if num_episodes > 0 else 0,
+        'loss_rate': losses / num_episodes if num_episodes > 0 else 0,
+        'avg_reward': sum(total_rewards) / len(total_rewards) if total_rewards else 0,
+        'min_reward': min(total_rewards) if total_rewards else 0,
+        'max_reward': max(total_rewards) if total_rewards else 0,
+        'total_wins': wins,
+        'total_losses': losses
+    }
+    
+    print("Evaluation Results:")
+    print(f"Win Rate: {metrics['win_rate']:.2%}")
+    print(f"Average Reward: {metrics['avg_reward']:.2f}")
+    print(f"Wins: {metrics['total_wins']}, Losses: {metrics['total_losses']}")
+    print(f"Min/Max Reward: {metrics['min_reward']:.2f}/{metrics['max_reward']:.2f}")
+    print(model.policy)
 
 def get_enemy_list(num_enemies):
     players_1 = [
@@ -157,56 +211,3 @@ def get_enemy_list(num_enemies):
         return players_3
     else:
         return []
-    
-def evaluate(eval_env, model, num_episodes=config.eval_episodes):
-    
-    total_rewards = []
-    wins = 0
-    losses = 0
-    
-    for episode in range(num_episodes):
-        observation, info = eval_env.reset()
-        done = False
-        episode_reward = 0
-        
-        while not done:
-            # Get action mask for current state
-            action_mask = mask_fn(eval_env)
-            
-            # Predict action with masking enabled
-            action, _ = model.predict(observation, action_masks=action_mask, deterministic=True)
-            
-            # Take the action
-            observation, reward, terminated, truncated, info = eval_env.step(action)
-            done = terminated or truncated
-            episode_reward += reward
-            
-            # Check if game ended with a win/loss
-            if done:
-                if reward > 0:  # Win
-                    wins += 1
-                elif reward < 0:  # Loss
-                    losses += 1
-        
-        total_rewards.append(episode_reward)
-    
-    eval_env.close()
-    
-    # Calculate evaluation metrics
-    metrics = {
-        'total_episodes': num_episodes,
-        'win_rate': wins / num_episodes if num_episodes > 0 else 0,
-        'loss_rate': losses / num_episodes if num_episodes > 0 else 0,
-        'avg_reward': sum(total_rewards) / len(total_rewards) if total_rewards else 0,
-        'min_reward': min(total_rewards) if total_rewards else 0,
-        'max_reward': max(total_rewards) if total_rewards else 0,
-        'total_wins': wins,
-        'total_losses': losses
-    }
-    
-    print("Evaluation Results:")
-    print(f"Win Rate: {metrics['win_rate']:.2%}")
-    print(f"Average Reward: {metrics['avg_reward']:.2f}")
-    print(f"Wins: {metrics['total_wins']}, Losses: {metrics['total_losses']}")
-    print(f"Min/Max Reward: {metrics['min_reward']:.2f}/{metrics['max_reward']:.2f}")
-    print(model.policy)
