@@ -3,6 +3,9 @@ import gymnasium
 
 from catanatron import Color
 from catanatron.players.weighted_random import WeightedRandomPlayer
+from catanatron.players.minimax import AlphaBetaPlayer
+from catanatron.players.mcts import MCTSPlayer
+from catanatron.players.value import ValueFunctionPlayer
 import catanatron.gym
 
 from sb3_contrib.common.wrappers import ActionMasker
@@ -20,45 +23,58 @@ def mask_fn(env) -> np.ndarray:
 
 def my_reward_function(game, p0_color):
     
+    rewards = config.rewards
+
     winning_color = game.winning_color()
     if winning_color is not None:  # Game ended
         if p0_color == winning_color:
-            return 100
+            return rewards["win"]
         else:
-            return -100
+            return rewards["lose"]
     
     state = game.state
-    reward = 0
     colour_index = state.color_to_index[p0_color]
     key = f"P{colour_index}_"
+    
     played_dev_card = state.player_state[f"{key}HAS_PLAYED_DEVELOPMENT_CARD_IN_TURN"]
     current_vp = state.player_state[f"{key}ACTUAL_VICTORY_POINTS"]
     longest_road_length = state.player_state[f"{key}LONGEST_ROAD_LENGTH"]
-    reward += (-0.1)/(current_vp + 1)
-    reward += (-0.1)/(longest_road_length + 1)
+    has_longest_road = state.player_state[f"{key}HAS_ROAD"]
+    has_largest_army = state.player_state[f"{key}HAS_ARMY"]
+    roads_left = state.player_state[f"{key}ROADS_AVAILABLE"]
+    settlements_left = state.player_state[f"{key}SETTLEMENTS_AVAILABLE"]
+    cities_left = state.player_state[f"{key}CITIES_AVAILABLE"]
+
+    reward = (rewards["s_negative"])/(current_vp + 1) + \
+        (rewards["s_negative"])/(longest_road_length + 1) + \
+            rewards["s_negative"]*roads_left + \
+                rewards["s_negative"]*settlements_left + \
+                    rewards["s_negative"]*cities_left
     
     if played_dev_card:
-        reward += 1
+        reward += rewards["l_positive"]
+    if not has_largest_army:
+        reward += rewards["s_negative"]
+    if not has_longest_road:
+        reward += rewards["s_negative"]
 
     return reward
 
-def make_envs(mask_fn, representation):
+def make_envs():
 
+    enemy_list = get_enemy_list(config.num_enemies)
+    enemies = enemy_list[config.enemy_type]
     # 3-player catan on a "Mini" map (7 tiles) until 6 points.
-    config={
-        "map_type": "MINI",
-        "vps_to_win": 6,
-        "enemies": [
-            WeightedRandomPlayer(Color.RED),
-            WeightedRandomPlayer(Color.ORANGE),
-            # WeightedRandomPlayer(Color.WHITE)
-        ],
+    configuration={
+        "map_type": config.map_type,
+        "vps_to_win": config.vps_to_win,
+        "enemies": enemies,
         "reward_function": my_reward_function,
-        "representation": representation,
+        "representation": config.representation,
     }
     
-    env = gymnasium.make("catanatron/Catanatron-v0",config=config)
-    eval_env = gymnasium.make("catanatron/Catanatron-v0",config=config)
+    env = gymnasium.make("catanatron/Catanatron-v0",config=configuration)
+    eval_env = gymnasium.make("catanatron/Catanatron-v0",config=configuration)
 
     # Init Environment and Model
     env = Monitor(ActionMasker(env, mask_fn))
@@ -66,18 +82,84 @@ def make_envs(mask_fn, representation):
 
     return env, eval_env
 
-def evaluate(eval_env, model, num_episodes=config.episodes):
-    """
-    Evaluate the model over multiple episodes and return performance metrics.
+def get_enemy_list(num_enemies):
+    players_1 = [
+        [
+            WeightedRandomPlayer(Color.RED)
+        ],
+        [
+            AlphaBetaPlayer(Color.RED)
+        ],
+        [
+            MCTSPlayer(Color.RED)
+        ],
+        [
+            ValueFunctionPlayer(Color.RED)
+        ],
+        [
+            AlphaBetaPlayer(Color.RED)
+        ],
+    ]
+    players_2 = [
+        [
+            WeightedRandomPlayer(Color.RED),
+            WeightedRandomPlayer(Color.ORANGE)
+        ],
+        [
+            AlphaBetaPlayer(Color.RED),
+            AlphaBetaPlayer(Color.ORANGE)
+        ],
+        [
+            MCTSPlayer(Color.RED),
+            MCTSPlayer(Color.ORANGE)
+        ],
+        [
+            ValueFunctionPlayer(Color.RED),
+            ValueFunctionPlayer(Color.ORANGE)
+        ],
+        [
+            WeightedRandomPlayer(Color.RED),
+            MCTSPlayer(Color.ORANGE)
+        ],
+    ]
+    players_3 = [
+        [
+            WeightedRandomPlayer(Color.RED),
+            WeightedRandomPlayer(Color.ORANGE),
+            WeightedRandomPlayer(Color.WHITE)
+        ],
+        [
+            AlphaBetaPlayer(Color.RED),
+            AlphaBetaPlayer(Color.ORANGE),
+            AlphaBetaPlayer(Color.WHITE)
+        ],
+        [
+            MCTSPlayer(Color.RED),
+            MCTSPlayer(Color.ORANGE),
+            MCTSPlayer(Color.WHITE)
+        ],
+        [
+            ValueFunctionPlayer(Color.RED),
+            ValueFunctionPlayer(Color.ORANGE),
+            ValueFunctionPlayer(Color.WHITE)
+        ],
+        [
+            WeightedRandomPlayer(Color.RED),
+            MCTSPlayer(Color.ORANGE),
+            ValueFunctionPlayer(Color.WHITE)
+        ],
+    ]
+    if num_enemies == 1:
+        return players_1
+    elif num_enemies == 2:
+        return players_2
+    elif num_enemies == 3:
+        return players_3
+    else:
+        return []
     
-    Args:
-        eval_env: The evaluation environment
-        model: The trained model to evaluate
-        num_episodes: Number of episodes to run for evaluation
+def evaluate(eval_env, model, num_episodes=config.eval_episodes):
     
-    Returns:
-        dict: Dictionary containing evaluation metrics
-    """
     total_rewards = []
     wins = 0
     losses = 0
@@ -92,7 +174,7 @@ def evaluate(eval_env, model, num_episodes=config.episodes):
             action_mask = mask_fn(eval_env)
             
             # Predict action with masking enabled
-            action, _ = model.predict(observation, action_masks=action_mask, deterministic=False)
+            action, _ = model.predict(observation, action_masks=action_mask, deterministic=True)
             
             # Take the action
             observation, reward, terminated, truncated, info = eval_env.step(action)
@@ -122,4 +204,9 @@ def evaluate(eval_env, model, num_episodes=config.episodes):
         'total_losses': losses
     }
     
-    return metrics
+    print("Evaluation Results:")
+    print(f"Win Rate: {metrics['win_rate']:.2%}")
+    print(f"Average Reward: {metrics['avg_reward']:.2f}")
+    print(f"Wins: {metrics['total_wins']}, Losses: {metrics['total_losses']}")
+    print(f"Min/Max Reward: {metrics['min_reward']:.2f}/{metrics['max_reward']:.2f}")
+    print(model.policy)
