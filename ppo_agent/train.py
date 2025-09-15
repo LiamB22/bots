@@ -8,45 +8,34 @@ current_dir = os.path.dirname(__file__)
 bots_root = os.path.join(current_dir, '..')
 sys.path.append(bots_root)
 
-from helpers.helpers import my_reward_function, mask_fn, make_envs
-from networks.networks import CNN, COMBINED
-from training.mask_callback import MaskableEvalCallback
-from testing import test_output
+import config
+from helpers import mask_fn, make_envs, evaluate
+from networks import CNN, COMBINED
 
 def main():
-
-    train_timesteps = 1_000_000
-    eval_episodes = 100
-    eval_timesteps = train_timesteps/100
-    deterministic = False
-    # representation = "mixed"
-    representation = "vector"
-    # mixed or vector
     
-    env, eval_env = make_envs(my_reward_function, mask_fn, representation)
-
-    # test_output(env, eval_env)
+    train_timesteps = config.train_timesteps
+    representation = config.representation
+    model_name = config.model_name
+    
+    env, eval_env = make_envs(mask_fn, representation)
 
     # choose from possible models: mlp_ppo, cnn_ppo, combination_ppo
-    if representation == "vector":
-
-        model_name = "mlp_ppo"
+    if representation == config.representations[0]:
 
         policy_kwargs = dict(
             net_arch=dict(pi=[128, 128], vf=[128, 128])
         )
-    else: # must be mixed then
 
-        # model_name = "cnn_ppo"
-        model_name = "combined_ppo"
-
-        if model_name == "cnn_ppo":
+    else:
+        
+        if model_name == config.model_names[1]:
             policy_kwargs = dict(
                 features_extractor_class=CNN,
                 features_extractor_kwargs=dict(features_dim=512),
                 net_arch=dict(pi=[256, 128], vf=[256, 128])
             )
-        else: # must be combined then
+        elif model_name == config.model_names[2]: # must be combined then
             policy_kwargs = dict(
                 features_extractor_class=COMBINED,
                 features_extractor_kwargs=dict(
@@ -56,25 +45,18 @@ def main():
                 ),
                 net_arch=dict(pi=[256, 128], vf=[256, 128])
             )
+        else:
+            policy_kwargs = dict(
+                features_extractor_class=CNN,
+                features_extractor_kwargs=dict(features_dim=512),
+                net_arch=dict(pi=[256, 128], vf=[256, 128])
+            )
             
-    model_dir = "bots/models/PPO"
-    best_model_name = "best_model"
+    model_dir = config.model_dir
+    best_model_name = config.best_model_name
     save_path = f"{model_dir}/{model_name}"
     load_path = f"{save_path}/{best_model_name}"
     os.makedirs(save_path, exist_ok=True)
-
-    eval_callback = MaskableEvalCallback(
-        eval_env=eval_env,
-        mask_fn=mask_fn,
-        representation=representation,  # Pass the representation type
-        best_model_save_path=save_path,
-        best_model_name=best_model_name,
-        log_path=save_path,
-        eval_freq=eval_timesteps,
-        n_eval_episodes=eval_episodes,
-        deterministic=deterministic,
-        verbose=2
-    )
 
     # Create the Maskable PPO agent
     model = MaskablePPO(
@@ -95,12 +77,8 @@ def main():
         max_grad_norm=0.5, # clips gradient to prevent exploding gradient problem
     )
 
-    # Use multiple callbacks
-    # callback = CallbackList([eval_callback, DebugCallback()])
-    # model.learn(total_timesteps=train_timesteps, callback=callback)
-    model.learn(total_timesteps=train_timesteps, callback=eval_callback)
-    eval_results = eval_callback.get_eval_results()
-    print(f"Completed {len(eval_results)} evaluation sessions")
+    model.learn(total_timesteps=train_timesteps)
+    model.save(f"{save_path}/{best_model_name}")
     
     best_model_path = load_path + ".zip"
     if os.path.exists(best_model_path):
@@ -109,6 +87,13 @@ def main():
     else:
         print("No best model found")
 
+    # In your main() function, replace the evaluation part:
+    info = evaluate(eval_env, best_model)
+    print("Evaluation Results:")
+    print(f"Win Rate: {info['win_rate']:.2%}")
+    print(f"Average Reward: {info['avg_reward']:.2f}")
+    print(f"Wins: {info['total_wins']}, Losses: {info['total_losses']}")
+    print(f"Min/Max Reward: {info['min_reward']:.2f}/{info['max_reward']:.2f}")
     print(model.policy)
 
 if __name__ == "__main__":
