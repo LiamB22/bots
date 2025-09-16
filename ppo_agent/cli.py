@@ -17,3 +17,5 @@ class FooPlayer(Player):
         # ===== END YOUR CODE =====
 
 register_cli_player("FOO", FooPlayer)
+
+# take another look at reinforcement.py in the repo to help understand how to do this.

@@ -33,7 +33,6 @@ def my_reward_function(game, p0_color):
             return rewards["lose"]
     
     state = game.state
-    decay = state.time
     colour_index = state.color_to_index[p0_color]
     key = f"P{colour_index}_"
 
