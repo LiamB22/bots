@@ -12,6 +12,8 @@ from sb3_contrib.common.wrappers import ActionMasker
 
 from stable_baselines3.common.monitor import Monitor
 
+from tqdm import tqdm
+
 import config
 
 def mask_fn(env) -> np.ndarray:
@@ -62,15 +64,21 @@ def my_reward_function(game, p0_color):
 
 def make_envs():
 
-    enemy_list = get_enemy_list(config.num_enemies)
-    enemies = enemy_list[config.enemy_type]
+    num_enemies = config.num_enemies
+    enemy_type = config.enemy_type
+    map_type = config.map_type
+    vps_to_win = config.vps_to_win
+    representation = config.representation
+
+    enemy_list = get_enemy_list(num_enemies)
+    enemies = enemy_list[enemy_type]
     # 3-player catan on a "Mini" map (7 tiles) until 6 points.
     configuration={
-        "map_type": config.map_type,
-        "vps_to_win": config.vps_to_win,
+        "map_type": map_type,
+        "vps_to_win": vps_to_win,
         "enemies": enemies,
         "reward_function": my_reward_function,
-        "representation": config.representation,
+        "representation": representation,
     }
     
     env = gymnasium.make("catanatron/Catanatron-v0",config=configuration)
@@ -88,7 +96,7 @@ def evaluate(eval_env, model, num_episodes=config.eval_episodes):
     wins = 0
     losses = 0
     
-    for episode in range(num_episodes):
+    for episode in tqdm(range(num_episodes)):
         observation, info = eval_env.reset()
         done = False
         episode_reward = 0

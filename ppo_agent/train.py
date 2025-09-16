@@ -16,8 +16,10 @@ def main():
     
     train_timesteps = config.train_timesteps
     model_name = config.model_name
+    model_names = config.model_names
     save_path = config.save_path
     representation = config.representation
+    representations = config.representations
     
     env, eval_env = make_envs()
 
@@ -42,10 +44,10 @@ def main():
     ]
 
     # choose from possible models: mlp_ppo, cnn_ppo, combination_ppo
-    if representation == config.representations[0]:
+    if representation == representations[0]:
         policy_kwargs = policy_kwargs_list[0]
     else:
-        if model_name == config.model_names[1]:
+        if model_name == model_names[1]:
             policy_kwargs = policy_kwargs_list[1]
         else:
             policy_kwargs = policy_kwargs_list[2]
@@ -69,8 +71,8 @@ def main():
         max_grad_norm=0.5, # clips gradient to prevent exploding gradient problem
     )
 
-    model.learn(total_timesteps=train_timesteps)
-    model.save(save_path)
+    # model.learn(total_timesteps=train_timesteps)
+    # model.save(save_path)
     print("Best model saved successfully")
 
     best_model_path = save_path
