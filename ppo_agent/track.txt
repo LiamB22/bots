@@ -1,0 +1,69 @@
+Exploring Catanatron:
+First I looked through the catanatron git repository.
+A detailed description of the environment and its abilities are provided there.
+I then went through the documentation for further details.
+After pulling it from github, I experimented with the commands available to 
+initiate games between bots and to play with visuals of the board.
+
+I then sampled the available skeleton code for building your own bot, which takes in the game state and playable actions, 
+and expects a decision from that information.
+
+I then sampled the available skeleton code for training your own model in the catanatron gym environment. 
+To my surprise, this already had an implementation of PPO - a single line to train using the MaskablePPO from stable_baselines3_contrib, 
+which requires the environment to have an action mask which stops the agent from selecting invalid moves (this was provided in the skeleton code). 
+I was not sure how it worked. I then explored more of the files in the repository, 
+looking at how to extract more information from the game state and current model to identify what I could work with. From testing, 
+I found the policy network of the PPO algorithm to be a MLP. 
+Further inspection of the stable baselines package revealed that there was a way to change the hyperparameters of the PPO algorithm, 
+and so I experimented with different values with short training sessions. 
+Within the package, I also discovere a way to change the policy networks from MLPs to other networks. This is exactly what I needed, 
+and so I decided to first implement a CNN to take in features from the board and train based on those solely - excluding other features such as cards. 
+To do this, I would first have to understand how the features were being based to the model. From the Catanatron OpenAI gym environment, 
+I was able to get the observation from the environment and found that it was a array of 614 features. 
+From the environment package modules in the documentation, I found the list of possible actions and what they mean.
+I had seen that there was a way to configure the environment in the catanatron gitbook online (where I got the skeleton codes), 
+and on that same page, it shows you how to configure the Catan environment. 
+One of these configurations was the representation of the board as either "vector" or "mixed". 
+I sampled the configuration and found that the observation, instead of a vector, 
+could be changed to a dictionary containing both board (board tensors) and numeric (vector of features such as cards). 
+This fit with how I would implement the CNN. From reading the documentation and from messing around with the environment and its properties, 
+I was able to determine the shapes of the features and from this, feed them into a network. 
+I then made the network and in the main file with the ppo, I substituted the existing network with the CNN. 
+This took some time and I fought to get the CNN to work with the input. 
+When this did work, I decided to create a second network which used both a CNN and a MLP, 
+each network used for it's own features (board tensors and feature vector).
+
+Stable_baselines offers an output of the logs of the model while training, so I was always able to see how well the model was doing while learning. 
+I stuck with the "mini" - I decided that it would be better to start small and then build from there. 
+The configuration also allowed me to add extra enemy bots for training and so it would not only be a 1v1 game. 
+This configuration also allows for a custom rewards function - the basic implementation offering the agent 100 for winning and -100 for losing, 
+instead of the regular 100 and -100. I didn't know what other rewards to give my agent because it didn't seem like there was much to go off of. 
+I knew I needed to improve this otherwise the agent would only get one reward at the very end of each game, 
+and so it would only learn from the last few moves it made - this means the training would always be slow. 
+I dug further through the source code of the environment and found flags that could be obtained from the state of the game. 
+These would return information about a particular agent playing the game (given the agent's colour), which I thought could be useful for training. 
+At first, I only used the boolean value obtained from whether or not the agent had played a development card that round to give a small reward of 1. 
+I couldn't think of a way to add other statuses as rewards because most were a value N that would change throughout the game rather than per turn, 
+which means that if I had given rewards in the same way, the rewards would be given for every turn of the game. 
+It was only later that I had the idea of giving a small constant negative rewards for values that changed throughout the game - 
+such as multiplying -0.01 with the number of roads left in the bank for my agent. This meant that, when it used the roads, 
+the negative reward would decrease and so the total reward would increase and hopefully the agent would learn to place roads more often.
+
+Stable baselines also supplies an evaluation function for training, which saves the best model (highest mean reward) 
+and gives information in the terminal about how well the agent performs when evaluated with a provided environment. 
+I attempted to use this but found that for each evaluation, it would return a total reward of -1, and episode length of 12. 
+This means that the agent made it 12 steps into the environment and received a reward of -1 for each step. 
+I did not know this until a lot of testing and a lot of frustration. I then took a look at which library I was using the package from, 
+and it turns out I was using the callback evaluation function from stable baselines 3 and not stable baselines 3 contrib. 
+This matters because contrib is more experimental, but offers unique algorithms such as the MaskablePPO. 
+This callback function did not have a way of masking the actions, as required by the environment to make evaluation successful. 
+This means that the agent wasn't making a decision when being evaluated and so received a reward of -1 each time it failed to make a decision, 
+until step 12 where it decides to stop the evaluation from, I'm guessing, inactivity. 
+Instead of having evaluation throughout the training and making my own class for maskable callback evaluation, 
+I decided to go for the simpler approach of evaluating the model at the end with a straight- 
+forward evaluation function with masked actions using the provided mask function. 
+This makes life simpler.
+
+I then cleaned up the code by implementing a configuration file to avoid magic numbers and make changes more easily. 
+I then added more possible enemies from the repository and I also added logic for easily switching between models and networks, 
+as well as saving logic to save each model to their own folders.
