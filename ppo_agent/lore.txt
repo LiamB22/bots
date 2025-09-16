@@ -12,8 +12,8 @@ I then sampled the available skeleton code for training your own model in the ca
 To my surprise, this already had an implementation of PPO - a single line to train using the MaskablePPO from stable_baselines3_contrib, 
 which requires the environment to have an action mask which stops the agent from selecting invalid moves (this was provided in the skeleton code). 
 I was not sure how it worked. I then explored more of the files in the repository, 
-looking at how to extract more information from the game state and current model to identify what I could work with. From testing, 
-I found the policy network of the PPO algorithm to be a MLP. 
+looking at how to extract more information from the game state and current model to identify what I could work with. 
+From testing, I found the policy network of the PPO algorithm to be a MLP. 
 Further inspection of the stable baselines package revealed that there was a way to change the hyperparameters of the PPO algorithm, 
 and so I experimented with different values with short training sessions. 
 Within the package, I also discovere a way to change the policy networks from MLPs to other networks. This is exactly what I needed, 
