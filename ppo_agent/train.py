@@ -9,7 +9,7 @@ bots_root = os.path.join(current_dir, '..')
 sys.path.append(bots_root)
 
 import config
-from helpers import make_envs, evaluate, make_eval_env
+from helpers import make_envs, evaluate
 from networks import CNN, COMBINED
 
 def main():
@@ -23,11 +23,11 @@ def main():
     
     env, eval_env = make_envs()
 
-    policy_kwargs_list = [
-        dict(
+    policy_kwargs_list = {
+        "vector":[dict(
             net_arch=dict(pi=[128, 128], vf=[128, 128])
-        ),
-        dict(
+        )],
+        "mixed":[dict(
             features_extractor_class=CNN,
             features_extractor_kwargs=dict(features_dim=512),
             net_arch=dict(pi=[256, 128], vf=[256, 128])
@@ -40,17 +40,17 @@ def main():
                 mlp_features_dim=256   # Size for MLP branch
             ),
             net_arch=dict(pi=[256, 128], vf=[256, 128])
-        )
-    ]
+        )]
+    }
 
     # choose from possible models: mlp_ppo, cnn_ppo, combination_ppo
     if representation == representations[0]:
-        policy_kwargs = policy_kwargs_list[0]
+        policy_kwargs = policy_kwargs_list[representation][0]
     else:
-        if model_name == model_names[1]:
-            policy_kwargs = policy_kwargs_list[1]
+        if model_name == model_names[0]:
+            policy_kwargs = policy_kwargs_list[representation][0]
         else:
-            policy_kwargs = policy_kwargs_list[2]
+            policy_kwargs = policy_kwargs_list[representation][1]
             
     # Create the Maskable PPO agent
     model = MaskablePPO(
@@ -74,8 +74,7 @@ def main():
     model.learn(total_timesteps=train_timesteps)
     model.save(save_path)
     print("Best model saved successfully")
-
-    eval_env = make_eval_env()
+    print(model.policy)
     best_model_path = save_path
     if os.path.exists(best_model_path):
         best_model = MaskablePPO.load(best_model_path, env=env)

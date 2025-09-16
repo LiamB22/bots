@@ -162,7 +162,6 @@ def evaluate(eval_env, model, num_episodes=config.eval_episodes):
     print(f"Average Reward: {metrics['avg_reward']:.2f}")
     print(f"Wins: {metrics['total_wins']}, Losses: {metrics['total_losses']}")
     print(f"Min/Max Reward: {metrics['min_reward']:.2f}/{metrics['max_reward']:.2f}")
-    print(model.policy)
 
 def get_enemy_list(num_enemies):
     players_1 = [
