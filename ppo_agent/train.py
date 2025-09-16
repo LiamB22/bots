@@ -9,7 +9,7 @@ bots_root = os.path.join(current_dir, '..')
 sys.path.append(bots_root)
 
 import config
-from helpers import make_envs, evaluate
+from helpers import make_envs, evaluate, make_eval_env
 from networks import CNN, COMBINED
 
 def main():
@@ -71,10 +71,11 @@ def main():
         max_grad_norm=0.5, # clips gradient to prevent exploding gradient problem
     )
 
-    # model.learn(total_timesteps=train_timesteps)
-    # model.save(save_path)
+    model.learn(total_timesteps=train_timesteps)
+    model.save(save_path)
     print("Best model saved successfully")
 
+    eval_env = make_eval_env()
     best_model_path = save_path
     if os.path.exists(best_model_path):
         best_model = MaskablePPO.load(best_model_path, env=env)

@@ -23,7 +23,7 @@ def mask_fn(env) -> np.ndarray:
 
     return np.array([bool(i) for i in mask])
 
-def my_reward_function(game, p0_color):
+def env_reward_function(game, p0_color):
     
     rewards = config.rewards
 
@@ -62,6 +62,19 @@ def my_reward_function(game, p0_color):
 
     return reward
 
+def eval_env_reward_function(game, p0_color):
+
+    rewards = config.rewards
+
+    winning_color = game.winning_color()
+    if winning_color is not None:  # Game ended
+        if p0_color == winning_color:
+            return rewards["win"]
+        else:
+            return rewards["lose"]
+    else:
+        return rewards["none"]
+
 def make_envs():
 
     num_enemies = config.num_enemies
@@ -73,16 +86,24 @@ def make_envs():
     enemy_list = get_enemy_list(num_enemies)
     enemies = enemy_list[enemy_type]
     # 3-player catan on a "Mini" map (7 tiles) until 6 points.
-    configuration={
+    env_configuration={
         "map_type": map_type,
         "vps_to_win": vps_to_win,
         "enemies": enemies,
-        "reward_function": my_reward_function,
+        "reward_function": env_reward_function,
+        "representation": representation,
+    }
+
+    eval_env_configuration={
+        "map_type": map_type,
+        "vps_to_win": vps_to_win,
+        "enemies": enemies,
+        "reward_function": eval_env_reward_function,
         "representation": representation,
     }
     
-    env = gymnasium.make("catanatron/Catanatron-v0",config=configuration)
-    eval_env = gymnasium.make("catanatron/Catanatron-v0",config=configuration)
+    env = gymnasium.make("catanatron/Catanatron-v0",config=env_configuration)
+    eval_env = gymnasium.make("catanatron/Catanatron-v0",config=eval_env_configuration)
 
     # Init Environment and Model
     env = Monitor(ActionMasker(env, mask_fn))
