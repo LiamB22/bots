@@ -20,6 +20,10 @@ def main():
     save_path = config.save_path
     representation = config.representation
     representations = config.representations
+    log_dir = config.log_dir
+    train_model = config.train_model
+    evaluate_model = config.evaluate_model
+    show_model_policy = config.show_model_policy
     
     env, eval_env = make_envs()
 
@@ -69,19 +73,23 @@ def main():
         ent_coef=0.01, # encourages exploration by adding entropy bonus to the loss
         vf_coef=0.5, # weight of value function loss relative to policy loss
         max_grad_norm=0.5, # clips gradient to prevent exploding gradient problem
+        tensorboard_log=log_dir, # log training for later viewing
     )
-
-    model.learn(total_timesteps=train_timesteps)
-    model.save(save_path)
-    print("Best model saved successfully")
-    print(model.policy)
-    best_model_path = save_path
-    if os.path.exists(best_model_path):
-        best_model = MaskablePPO.load(best_model_path, env=env)
-        print("Best model loaded successfully")
-        evaluate(eval_env, best_model)
-    else:
-        print("No best model found")
+    if train_model:
+        print(f"Training {model_name}")
+        model.learn(total_timesteps=train_timesteps)
+        model.save(save_path)
+        print("Best model saved successfully")
+    if show_model_policy:
+        print(model.policy)
+    if evaluate_model:
+        best_model_path = save_path
+        if os.path.exists(best_model_path):
+            best_model = MaskablePPO.load(best_model_path, env=env)
+            print("Best model loaded successfully")
+            evaluate(eval_env, best_model)
+        else:
+            print("No best model found")
 
 if __name__ == "__main__":
     main()
