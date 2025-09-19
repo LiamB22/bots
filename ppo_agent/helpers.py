@@ -16,6 +16,11 @@ from tqdm import tqdm
 
 import config
 
+def linear_schedule(progress_remaining):
+    initial_lr = 3e-4
+    final_lr = 3e-6
+    return initial_lr + (1 - progress_remaining) * (final_lr - initial_lr)
+
 def mask_fn(env) -> np.ndarray:
     valid_actions = env.unwrapped.get_valid_actions()
     mask = np.zeros(env.action_space.n, dtype=np.float32)
@@ -47,18 +52,27 @@ def my_reward_function(game, p0_color):
     settlements_left = state.player_state[f"{key}SETTLEMENTS_AVAILABLE"]
     cities_left = state.player_state[f"{key}CITIES_AVAILABLE"]
 
-    reward = (rewards["s_negative"])/(current_vp + 1) + \
-        (rewards["s_negative"])/(longest_road_length + 1) + \
-            rewards["s_negative"]*roads_left + \
-                rewards["s_negative"]*settlements_left + \
-                    rewards["s_negative"]*cities_left
+    # negative rewards
+    # reward = (rewards["s_negative"])/(current_vp + 1) + \
+    #     (rewards["s_negative"])/(longest_road_length + 1) + \
+    #         rewards["s_negative"]*roads_left + \
+    #             rewards["s_negative"]*settlements_left + \
+    #                 rewards["s_negative"]*cities_left
+
+    # positive rewards
+    reward =rewards['s_positive']*current_vp + \
+            rewards['s_positive']*longest_road_length + \
+            rewards['s_positive']/(roads_left + 1) + \
+            rewards['s_positive']/(settlements_left + 1) + \
+            rewards['s_positive']/(cities_left + 1) + \
+            rewards['move_penalty']
     
     if played_dev_card:
         reward += rewards["l_positive"]
-    if not has_largest_army:
-        reward += rewards["s_negative"]
-    if not has_longest_road:
-        reward += rewards["s_negative"]
+    if has_largest_army:
+        reward += rewards["l_positive"]
+    if has_longest_road:
+        reward += rewards["l_positive"]
 
     return reward
 

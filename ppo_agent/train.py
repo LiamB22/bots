@@ -9,7 +9,7 @@ bots_root = os.path.join(current_dir, '..')
 sys.path.append(bots_root)
 
 import config
-from helpers import make_envs, evaluate
+from helpers import make_envs, evaluate, linear_schedule
 from networks import CNN, COMBINED
 
 def main():
@@ -24,6 +24,7 @@ def main():
     train_model = config.train_model
     evaluate_model = config.evaluate_model
     show_model_policy = config.show_model_policy
+    train_further = config.train_further
     
     env, eval_env = make_envs()
 
@@ -39,11 +40,11 @@ def main():
         dict(
             features_extractor_class=COMBINED,
             features_extractor_kwargs=dict(
-                features_dim=512,
-                cnn_features_dim=256,  # Size for CNN branch
-                mlp_features_dim=256   # Size for MLP branch
+                features_dim=128,
+                cnn_features_dim=64,  # Size for CNN branch
+                mlp_features_dim=64   # Size for MLP branch
             ),
-            net_arch=dict(pi=[256, 128], vf=[256, 128])
+            net_arch=dict(pi=[64], vf=[64])
         )]
     }
 
@@ -55,26 +56,34 @@ def main():
             policy_kwargs = policy_kwargs_list[representation][0]
         else:
             policy_kwargs = policy_kwargs_list[representation][1]
-            
-    # Create the Maskable PPO agent
-    model = MaskablePPO(
-        MaskableActorCriticPolicy,
-        env,
-        policy_kwargs=policy_kwargs,
-        verbose=1,
-        learning_rate=1e-4,
-        n_steps=4096, # experience before update
-        batch_size=128, # size of minibatches creates n_steps/batch_size mini-batches
-        n_epochs=15, # number of times we use n_steps (num games)
-        gamma=0.995, # discount factor
-        gae_lambda=0.95, # generalising advantage estimation
-        clip_range=0.2,
-        clip_range_vf=None,
-        ent_coef=0.01, # encourages exploration by adding entropy bonus to the loss
-        vf_coef=0.5, # weight of value function loss relative to policy loss
-        max_grad_norm=0.5, # clips gradient to prevent exploding gradient problem
-        tensorboard_log=log_dir, # log training for later viewing
-    )
+    
+    if train_further:
+        model_path = save_path
+        if os.path.exists(model_path):
+            model = MaskablePPO.load(model_path, env=env)
+            print("Model loaded successfully. Training model further.")
+        else:
+            print("No best model found")
+    else:    
+        # Create the Maskable PPO agent
+        model = MaskablePPO(
+            MaskableActorCriticPolicy,
+            env,
+            policy_kwargs=policy_kwargs,
+            verbose=1,
+            learning_rate=linear_schedule,
+            n_steps=4096, # experience before update
+            batch_size=128, # size of minibatches creates n_steps/batch_size mini-batches
+            n_epochs=15, # number of times we use n_steps (num games)
+            gamma=0.995, # discount factor
+            gae_lambda=0.95, # generalising advantage estimation
+            clip_range=0.2,
+            clip_range_vf=None,
+            ent_coef=0.01, # encourages exploration by adding entropy bonus to the loss
+            vf_coef=0.5, # weight of value function loss relative to policy loss
+            max_grad_norm=0.1, # clips gradient to prevent exploding gradient problem
+            tensorboard_log=log_dir, # log training for later viewing
+        )
     if train_model:
         print(f"Training {model_name}")
         model.learn(total_timesteps=train_timesteps)

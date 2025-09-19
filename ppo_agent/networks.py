@@ -51,25 +51,27 @@ class COMBINED(BaseFeaturesExtractor):
     Handles both board (CNN) and numeric (MLP) features
     """
     
-    def __init__(self, observation_space, features_dim=512, cnn_features_dim=256, mlp_features_dim=256):
+    def __init__(self, observation_space, features_dim=256, cnn_features_dim=128, mlp_features_dim=128):
         super().__init__(observation_space, features_dim)
         
         # ===== CNN for board features =====
         self.cnn = nn.Sequential(
-            nn.Conv2d(observation_space['board'].shape[0], 32, kernel_size=3, stride=1, padding=1),
-            nn.ReLU(),
-            nn.MaxPool2d(kernel_size=2, stride=2),
-            
-            nn.Conv2d(32, 64, kernel_size=3, stride=1, padding=1),
-            nn.ReLU(),
-            nn.MaxPool2d(kernel_size=2, stride=2),
-            
-            nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1),
-            nn.ReLU(),
-            nn.MaxPool2d(kernel_size=2, stride=2),
-            
-            nn.Flatten(),
-        )
+        nn.Conv2d(observation_space['board'].shape[0], 32, kernel_size=3, stride=1, padding=1),
+        nn.BatchNorm2d(32),
+        nn.ReLU(),
+        nn.MaxPool2d(kernel_size=2, stride=2), # 21x11 -> 10x5
+        
+        nn.Conv2d(32, 64, kernel_size=3, stride=1, padding=1),
+        nn.BatchNorm2d(64),
+        nn.ReLU(),
+        nn.MaxPool2d(kernel_size=2, stride=2), # 10x5 -> 5x2
+        
+        nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=1),
+        nn.BatchNorm2d(64),
+        nn.ReLU(),
+        
+        nn.Flatten(),
+    )
         
         # Calculate CNN output size dynamically
         with torch.no_grad():
@@ -80,13 +82,19 @@ class COMBINED(BaseFeaturesExtractor):
         
         # ===== MLP for numeric features =====
         self.mlp = nn.Sequential(
-            nn.Linear(observation_space['numeric'].shape[0], 128),
-            nn.ReLU(),
-            nn.Linear(128, 128),
-            nn.ReLU(),
-            nn.Linear(128, mlp_features_dim),
-            nn.ReLU(),
-        )
+        nn.Linear(observation_space['numeric'].shape[0], 128),
+        nn.BatchNorm1d(128),
+        nn.ReLU(),
+        nn.Dropout(0.1),
+        
+        nn.Linear(128, 128),
+        nn.BatchNorm1d(128),
+        nn.ReLU(),
+        nn.Dropout(0.1),
+        
+        nn.Linear(128, mlp_features_dim),
+        nn.ReLU(),
+    )
         
         # ===== Combine features =====
         self.combine_fc = nn.Linear(cnn_features_dim + mlp_features_dim, features_dim)
