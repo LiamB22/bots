@@ -31,6 +31,9 @@ def mask_fn(env) -> np.ndarray:
 def my_reward_function(game, p0_color):
     
     rewards = config.rewards
+    starting_cities = 4
+    starting_settlements = 4
+    starting_roads = 15
 
     winning_color = game.winning_color()
     if winning_color is not None:  # Game ended
@@ -60,19 +63,19 @@ def my_reward_function(game, p0_color):
     #                 rewards["s_negative"]*cities_left
 
     # positive rewards
-    reward =rewards['s_positive']*current_vp + \
-            rewards['s_positive']*longest_road_length + \
-            rewards['s_positive']/(roads_left + 1) + \
-            rewards['s_positive']/(settlements_left + 1) + \
-            rewards['s_positive']/(cities_left + 1) + \
-            rewards['move_penalty']
+    reward =rewards["current_vp"]*current_vp + \
+            rewards["longest_road_length"]*longest_road_length + \
+            rewards["roads_left"]*(starting_roads - roads_left) + \
+            rewards["settlements_left"]*(starting_settlements - settlements_left) + \
+            rewards["cities_left"]*(starting_cities - cities_left) + \
+            rewards["move_penalty"]
     
     if played_dev_card:
-        reward += rewards["l_positive"]
+        reward += rewards["played_dev_card"]
     if has_largest_army:
-        reward += rewards["l_positive"]
+        reward += rewards["has_largest_army"]
     if has_longest_road:
-        reward += rewards["l_positive"]
+        reward += rewards["has_longest_road"]
 
     return reward
 
@@ -84,8 +87,8 @@ def make_envs():
     vps_to_win = config.vps_to_win
     representation = config.representation
 
-    enemy_list = get_enemy_list(num_enemies)
-    enemies = enemy_list[enemy_type]
+    enemy_list = get_enemy_list(num_enemies) # gets a list of different players with num_enemies of each type
+    enemies = enemy_list[enemy_type] # gets the list of correct enemies according to the number taken from config
     # 3-player catan on a "Mini" map (7 tiles) until 6 points.
     configuration={
         "map_type": map_type,

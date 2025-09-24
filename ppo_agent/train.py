@@ -10,7 +10,7 @@ sys.path.append(bots_root)
 
 import config
 from helpers import make_envs, evaluate, linear_schedule
-from networks import CNN, COMBINED
+from networks import COMBINED
 
 def main():
     
@@ -25,37 +25,28 @@ def main():
     evaluate_model = config.evaluate_model
     show_model_policy = config.show_model_policy
     train_further = config.train_further
+    best_model_path = config.best_models_path
+    use_best_model = config.use_best_model
     
     env, eval_env = make_envs()
 
     policy_kwargs_list = {
-        "vector":[dict(
-            net_arch=dict(pi=[128, 128], vf=[128, 128])
-        )],
-        "mixed":[dict(
-            features_extractor_class=CNN,
-            features_extractor_kwargs=dict(features_dim=512),
+        "vector": [dict(
             net_arch=dict(pi=[256, 128], vf=[256, 128])
-        ),
-        dict(
+        )],
+        "mixed": [dict(
             features_extractor_class=COMBINED,
             features_extractor_kwargs=dict(
-                features_dim=128,
-                cnn_features_dim=64,  # Size for CNN branch
-                mlp_features_dim=64   # Size for MLP branch
+                features_dim=512,
+                cnn_features_dim=256,
+                mlp_features_dim=256
             ),
-            net_arch=dict(pi=[64], vf=[64])
+            net_arch=dict(pi=[256, 128], vf=[256, 128])
         )]
     }
 
     # choose from possible models: mlp_ppo, cnn_ppo, combination_ppo
-    if representation == representations[0]:
-        policy_kwargs = policy_kwargs_list[representation][0]
-    else:
-        if model_name == model_names[0]:
-            policy_kwargs = policy_kwargs_list[representation][0]
-        else:
-            policy_kwargs = policy_kwargs_list[representation][1]
+    policy_kwargs = policy_kwargs_list[representation][0]
     
     if train_further:
         model_path = save_path
@@ -71,8 +62,9 @@ def main():
             env,
             policy_kwargs=policy_kwargs,
             verbose=1,
-            learning_rate=linear_schedule,
-            n_steps=4096, # experience before update
+            learning_rate=1e-4,
+            # learning_rate=linear_schedule,
+            n_steps=2048, # experience before update
             batch_size=128, # size of minibatches creates n_steps/batch_size mini-batches
             n_epochs=15, # number of times we use n_steps (num games)
             gamma=0.995, # discount factor
@@ -92,9 +84,12 @@ def main():
     if show_model_policy:
         print(model.policy)
     if evaluate_model:
-        best_model_path = save_path
-        if os.path.exists(best_model_path):
-            best_model = MaskablePPO.load(best_model_path, env=env)
+        if use_best_model:
+            model_path = best_model_path
+        else:
+            model_path = save_path
+        if os.path.exists(model_path):
+            best_model = MaskablePPO.load(model_path, env=env)
             print("Best model loaded successfully")
             evaluate(eval_env, best_model)
         else:
