@@ -1,0 +1,213 @@
+
+Trained combined model with config:
+
+    representation = representations[1] #change representation
+    model_names = rep_and_models[representation]
+    model_name = model_names[0] #change model
+    enemy_type = enemy_types["W"] #change enemy
+    map_type = map_types[1] #change map
+    vps_to_win = 6 #chane number of victory points required to win
+    num_enemies = 3 #change the number of enemy bots
+    num_players = num_enemies + 1
+    train_timesteps = 1_000_000 #change how long to train agent for
+    eval_episodes = 1_000 #change how many episodes the agent is evaluated for
+
+    "mixed": [dict(
+                features_extractor_class=COMBINED,
+                features_extractor_kwargs=dict(
+                    features_dim=512,
+                    cnn_features_dim=256,
+                    mlp_features_dim=256
+                ),
+                net_arch=dict(pi=[256, 128], vf=[256, 128])
+            )]
+
+    model = MaskablePPO(
+                MaskableActorCriticPolicy,
+                env,
+                policy_kwargs=policy_kwargs,
+                verbose=1,
+                learning_rate=1e-4,
+                # learning_rate=linear_schedule,
+                n_steps=2048, # experience before update
+                batch_size=128, # size of minibatches creates n_steps/batch_size mini-batches
+                n_epochs=15, # number of times we use n_steps (num games)
+                gamma=0.995, # discount factor
+                gae_lambda=0.95, # generalising advantage estimation
+                clip_range=0.2,
+                clip_range_vf=None,
+                ent_coef=0.01, # encourages exploration by adding entropy bonus to the loss
+                vf_coef=0.5, # weight of value function loss relative to policy loss
+                max_grad_norm=0.1, # clips gradient to prevent exploding gradient problem
+                tensorboard_log=log_dir, # log training for later viewing
+            )
+
+    Evaluation Results:
+    Win Rate: 45.10%
+    Average Reward: 11.34
+    Wins: 451, Losses: 549
+    Min/Max Reward: -106.10/242.73
+
+Trained original model with same config:
+Win Rate: 45.70%
+Average Reward: 9.32
+Wins: 457, Losses: 543
+Min/Max Reward: -107.58/206.00
+
+now with 500 000 train steps:
+combined model:
+Win Rate: 47.70%
+Average Reward: 12.46
+Wins: 477, Losses: 523
+Min/Max Reward: -109.83/204.98
+
+combined model with 2 extra layers:
+Win Rate: 58.70%
+Average Reward: 35.11
+Wins: 587, Losses: 413
+Min/Max Reward: -110.83/232.54
+
+combined model with 3 extra layers:
+Win Rate: 52.20%
+Average Reward: 23.58
+Wins: 522, Losses: 478
+Min/Max Reward: -106.52/238.18
+
+normal model:
+Evaluation Results:
+Win Rate: 49.50%
+Average Reward: 15.68
+Wins: 495, Losses: 505
+Min/Max Reward: -108.94/233.61
+
+now with 250 000 train steps:
+combined model:
+Win Rate: 44.20%
+Average Reward: 12.65
+Wins: 442, Losses: 558
+Min/Max Reward: -105.76/244.34
+
+combined model with 2 extra layers:
+Win Rate: 49.70%
+Average Reward: 12.62
+Wins: 497, Losses: 503
+Min/Max Reward: -109.12/240.33
+
+normal model:
+Win Rate: 42.20%
+Average Reward: 0.38
+Wins: 422, Losses: 578
+Min/Max Reward: -115.34/212.44
+
+now with 125 000 train steps:
+combined model:
+Win Rate: 40.50%
+Average Reward: -4.77
+Wins: 405, Losses: 595
+Min/Max Reward: -108.96/226.15
+
+combined model with 2 extra layers:
+Win Rate: 42.50%
+Average Reward: 1.36
+Wins: 425, Losses: 575
+Min/Max Reward: -107.79/193.66
+
+normal model:
+Win Rate: 46.90%
+Average Reward: 8.33
+Wins: 469, Losses: 531
+Min/Max Reward: -105.69/193.06
+
+# New set of results with combined model having 2 more convoluational layers and averaged over 3 runs:
+
+Configuration:
+representation = representations[0] #change representation
+model_names = rep_and_models[representation]
+model_name = model_names[0] #change model
+enemy_type = enemy_types["W"] #change enemy
+map_type = map_types[1] #change map
+vps_to_win = 6 #chane number of victory points required to win
+num_enemies = 3 #change the number of enemy bots
+num_players = num_enemies + 1
+train_timesteps = 500_000 #change how long to train agent for
+eval_episodes = 1_000 #change how many episodes the agent is evaluated for
+train_model = True #boolean for whether the model is trained
+evaluate_model = True #boolean if evaluated
+show_model_policy = True #boolean for model policy
+train_further = False #train an existing model further
+use_best_model = False #whether or not the best model is used to evaluate
+
+model = MaskablePPO(
+    MaskableActorCriticPolicy,
+    env,
+    policy_kwargs=policy_kwargs,
+    verbose=1,
+    # learning_rate=1e-4,
+    learning_rate=linear_schedule,
+    n_steps=2048, # experience before update
+    batch_size=128, # size of minibatches creates n_steps/batch_size mini-batches
+    n_epochs=15, # number of times we use n_steps (num games)
+    gamma=0.995, # discount factor
+    gae_lambda=0.95, # generalising advantage estimation
+    clip_range=0.2,
+    clip_range_vf=None,
+    ent_coef=0.01, # encourages exploration by adding entropy bonus to the loss
+    vf_coef=0.5, # weight of value function loss relative to policy loss
+    max_grad_norm=0.1, # clips gradient to prevent exploding gradient problem
+    tensorboard_log=log_dir, # log training for later viewing
+)
+
+policy_kwargs_list = {
+    "vector": [dict(
+        net_arch=dict(pi=[256, 128], vf=[256, 128])
+    )],
+    "mixed": [dict(
+        features_extractor_class=COMBINED,
+        features_extractor_kwargs=dict(
+            features_dim=512,
+            cnn_features_dim=256,
+            mlp_features_dim=256
+        ),
+        net_arch=dict(pi=[256, 128], vf=[256, 128])
+    )]
+}
+
+Vector (original) model:
+train 1:
+    Win Rate: 52.80%
+    Average Reward: 23.46
+    Wins: 528, Losses: 472
+    Min/Max Reward: -109.70/237.41
+    total evaluation time: 188.401342 seconds
+
+train 2:
+    Win Rate: 55.80%
+    Average Reward: 28.36
+    Wins: 558, Losses: 442
+    Min/Max Reward: -105.49/216.57
+    total evaluation time: 386.098035 seconds
+
+train 3:
+    Win Rate: 49.30%
+    Average Reward: 18.26
+    Wins: 493, Losses: 507
+    Min/Max Reward: -105.85/192.11
+    total evaluation time: 219.171110 seconds
+Averages:
+
+Mixed (combined) model:
+train 1:
+    Win Rate: 48%
+train 2:
+    Win Rate: 43.60%
+    Average Reward: 2.63
+    Wins: 436, Losses: 564
+    Min/Max Reward: -108.61/217.27
+    total evaluation time: 446.356543 seconds
+
+train 3:
+
+Averages:
+
+
+

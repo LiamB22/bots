@@ -1,5 +1,6 @@
 import os
 import sys
+import time
 
 from sb3_contrib.common.maskable.policies import MaskableActorCriticPolicy
 from sb3_contrib.ppo_mask import MaskablePPO
@@ -62,8 +63,8 @@ def main():
             env,
             policy_kwargs=policy_kwargs,
             verbose=1,
-            learning_rate=1e-4,
-            # learning_rate=linear_schedule,
+            # learning_rate=1e-4,
+            learning_rate=linear_schedule,
             n_steps=2048, # experience before update
             batch_size=128, # size of minibatches creates n_steps/batch_size mini-batches
             n_epochs=15, # number of times we use n_steps (num games)
@@ -78,9 +79,13 @@ def main():
         )
     if train_model:
         print(f"Training {model_name}")
+        start_train_time = time.time()
         model.learn(total_timesteps=train_timesteps)
+        end_train_time = time.time()
         model.save(save_path)
         print("Best model saved successfully")
+        train_run_time = end_train_time - start_train_time
+        print(f"total training time: {train_run_time:.6f} seconds")
     if show_model_policy:
         print(model.policy)
     if evaluate_model:
@@ -91,7 +96,11 @@ def main():
         if os.path.exists(model_path):
             best_model = MaskablePPO.load(model_path, env=env)
             print("Best model loaded successfully")
+            start_eval_time = time.time()
             evaluate(eval_env, best_model)
+            end_eval_time = time.time()
+            eval_run_time = end_eval_time - start_eval_time
+            print(f"total evaluation time: {eval_run_time:.6f} seconds")
         else:
             print("No best model found")
 

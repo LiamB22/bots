@@ -27,6 +27,12 @@ class COMBINED(BaseFeaturesExtractor):
             nn.Conv2d(128, 256, kernel_size=3, stride=1, padding=1),
             nn.BatchNorm2d(256),
             nn.ReLU(),
+            nn.Conv2d(256, 256, kernel_size=3, stride=1, padding=1),  # Added layer 1
+            nn.BatchNorm2d(256),                                      # Added layer 1
+            nn.ReLU(),
+            nn.Conv2d(256, 256, kernel_size=3, stride=1, padding=1),  # Added layer 2
+            nn.BatchNorm2d(256),                                      # Added layer 2
+            nn.ReLU(),
             nn.AdaptiveAvgPool2d((3, 2)),  # Fixed output size
             nn.Flatten(),
         )
