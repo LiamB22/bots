@@ -211,3 +211,88 @@ Averages:
 
 
 
+125 000 iterations:
+combined:
+Win Rate: 41.00%
+Average Reward: 4.32
+Wins: 41, Losses: 59
+Min/Max Reward: -105.58/157.89
+total evaluation time: 41.317465 seconds
+
+Win Rate: 35.00%
+Average Reward: -16.88
+Wins: 35, Losses: 65
+Min/Max Reward: -113.55/192.28
+total evaluation time: 36.781556 seconds
+
+Win Rate: 44.00%
+Average Reward: 8.59
+Wins: 44, Losses: 56
+Min/Max Reward: -103.89/177.33
+total evaluation time: 37.494069 seconds
+
+vector:
+Win Rate: 36.00%
+Average Reward: -17.26
+Wins: 36, Losses: 64
+Min/Max Reward: -116.23/183.63
+
+Win Rate: 40.00%
+Average Reward: -4.42
+Wins: 40, Losses: 60
+Min/Max Reward: -108.84/167.68
+total evaluation time: 20.746002 seconds
+
+Win Rate: 38.00%
+Average Reward: -10.57
+Wins: 38, Losses: 62
+Min/Max Reward: -112.02/150.30
+total evaluation time: 19.420227 seconds
+
+1 000 000 time steps:
+combined:
+Evaluation Results:
+Win Rate: 54.50%
+Average Reward: 28.73
+Wins: 545, Losses: 455
+Min/Max Reward: -106.03/219.85
+total evaluation time: 387.449058 seconds
+
+Win Rate: 53.60%
+Average Reward: 27.23
+Wins: 536, Losses: 464
+Min/Max Reward: -108.30/213.57
+total evaluation time: 333.795431 seconds
+
+Win Rate: 57.10%
+Average Reward: 31.32
+Wins: 571, Losses: 429
+Min/Max Reward: -107.35/203.89
+total evaluation time: 339.694937 seconds
+
+vector:
+Win Rate: 49.30%
+Average Reward: 15.15
+Wins: 493, Losses: 507
+Min/Max Reward: -105.90/241.45
+total evaluation time: 207.472451 seconds
+
+Win Rate: 49.90%
+Average Reward: 17.91
+Wins: 499, Losses: 501
+Min/Max Reward: -107.23/283.99
+total evaluation time: 185.593512 seconds
+
+Win Rate: 58.50%
+Average Reward: 34.55
+Wins: 585, Losses: 415
+Min/Max Reward: -104.99/205.13
+total evaluation time: 185.658610 seconds
+
+3 000 000 time steps:
+combined with 4 extra layers:
+Win Rate: 56.80%
+Average Reward: 32.47
+Wins: 568, Losses: 432
+Min/Max Reward: -106.86/214.46
+total evaluation time: 337.492682 seconds
