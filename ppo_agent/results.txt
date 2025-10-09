@@ -296,3 +296,24 @@ Average Reward: 32.47
 Wins: 568, Losses: 432
 Min/Max Reward: -106.86/214.46
 total evaluation time: 337.492682 seconds
+
+1 500 000 time steps:
+combined with extra mlp layer and modified reward function:
+
+rewards = {"win":100, "lose":-100, "l_positive":1, "s_positive":0.01, "s_negative":-0.01, "move_penalty":-1,"none":0, 
+           "current_vp":0.5, "longest_road_length":0.005, "roads_left":0.03, "settlements_left":0.03, "cities_left":0.03,
+           "played_dev_card":0.2, "has_largest_army":0.2, "has_longest_road":0.2}
+           
+Win Rate: 53.30%
+Average Reward: 66.25
+Wins: 533, Losses: 467
+Min/Max Reward: -99.41/379.45
+total evaluation time: 539.198952 seconds
+
+1 000 000 time steps:
+combined with vps_to_win set to 1:
+Win Rate: 51.20%
+Average Reward: 219.88
+Wins: 512, Losses: 488
+Min/Max Reward: -68.18/1165.37
+total evaluation time: 353.066288 seconds
