@@ -325,3 +325,10 @@ Average Reward: 199.51
 Wins: 476, Losses: 524
 Min/Max Reward: -78.94/954.06
 total evaluation time: 355.612287 seconds
+
+combined with 2 extra cnn layers, no changes to config:
+Win Rate: 54.60%
+Average Reward: 30.06
+Wins: 546, Losses: 454
+Min/Max Reward: -107.12/214.20
+total evaluation time: 27212.471221 seconds
