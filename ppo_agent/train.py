@@ -11,7 +11,7 @@ sys.path.append(bots_root)
 
 import config
 from helpers import make_envs, evaluate, linear_schedule
-from networks import COMBINED
+from networks import COMBINED, BOARD_ONLY, NUMERIC_ONLY
 
 def main():
     
@@ -44,11 +44,35 @@ def main():
                     mlp_features_dim=256
                 ),
                 net_arch=dict(pi=[256, 128], vf=[256, 128])
-            )]
+            )],
+            "board_only": [dict(
+                features_extractor_class=BOARD_ONLY,
+                features_extractor_kwargs=dict(
+                    features_dim=512,
+                    cnn_features_dim=512
+                ),
+                net_arch=dict(pi=[256, 128], vf=[256, 128])
+            )],
+            "numeric_only": [dict(
+                features_extractor_class=NUMERIC_ONLY,
+                features_extractor_kwargs=dict(
+                    features_dim=512,
+                    mlp_features_dim=512
+                ),
+                net_arch=dict(pi=[256, 128], vf=[256, 128])
+            )],
         }
 
-        # choose from possible models: mlp_ppo, cnn_ppo, combination_ppo
-        policy_kwargs = policy_kwargs_list[representation][0]
+        # choose from possible models: mlp_ppo, combination_ppo, board only, numeric only
+        if representation == representations[0]: # vector
+            policy_kwargs = policy_kwargs_list[representation][0] # mlp
+        else:
+            if model_name == model_names[0]: # combined
+                policy_kwargs = policy_kwargs_list[representation][0] # combined
+            elif model_name == model_names[1]:
+                policy_kwargs = policy_kwargs_list[representation][1] # board only
+            else:
+                policy_kwargs = policy_kwargs_list[representation][2] # numeric only
         
         if train_further:
             model_path = save_path

@@ -44,6 +44,7 @@ model = MaskablePPO(
             tensorboard_log=log_dir, # log training for later viewing
         )
 
+COMBINED ==================================================
 combined_ppo run 1:
 Win Rate: 58.50%
 Average Reward: 37.41
@@ -79,6 +80,20 @@ Wins: 559, Losses: 441
 Min/Max Reward: -106.77/267.01
 total evaluation time: 308.688925 seconds
 
+combined with sparse rewards run 1:
+
+run 2:
+
+
+run 3:
+
+
+run 4:
+
+
+run 5:
+
+MLP ==================================================
 mlp_ppo run 1:
 Win Rate: 49.70%
 Average Reward: 16.88
@@ -114,6 +129,43 @@ Wins: 469, Losses: 531
 Min/Max Reward: -107.54/190.20
 total evaluation time: 188.773321 seconds
 
+
+mlp_ppo with sparse rewards run 1:
+Evaluation Results:
+Win Rate: 51.50%
+Average Reward: 3.00
+Wins: 515, Losses: 485
+Min/Max Reward: -100.00/100.00
+total evaluation time: 187.638657 seconds
+
+run 2:
+Win Rate: 53.50%
+Average Reward: 7.00
+Wins: 535, Losses: 465
+Min/Max Reward: -100.00/100.00
+total evaluation time: 181.150192 seconds
+
+run 3:
+Win Rate: 47.50%
+Average Reward: -5.00
+Wins: 475, Losses: 525
+Min/Max Reward: -100.00/100.00
+total evaluation time: 185.426757 seconds
+
+run 4:
+Win Rate: 46.80%
+Average Reward: -6.40
+Wins: 468, Losses: 532
+Min/Max Reward: -100.00/100.00
+total evaluation time: 185.445342 seconds
+
+run 5:
+Win Rate: 53.80%
+Average Reward: 7.60
+Wins: 538, Losses: 462
+Min/Max Reward: -100.00/100.00
+total evaluation time: 181.956277 seconds
+
 combined model but
 changed
 nn.AdaptiveAvgPool2d((3, 2)),  # Fixed output size
@@ -125,3 +177,4 @@ Average Reward: 20.94
 Wins: 515, Losses: 485
 Min/Max Reward: -107.55/199.36
 total evaluation time: 321.486890 seconds
+

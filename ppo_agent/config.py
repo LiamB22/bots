@@ -1,6 +1,6 @@
 rep_and_models = {
     "vector":["mlp_ppo"], # "0" vector only models. model 0, 1, 2.. etc
-    "mixed":["combined_ppo"] # "1" mixed only models. model 0, 1, 2.. etc
+    "mixed":["combined_ppo", "board_only", "numeric_only"] # "1" mixed only models. model 0, 1, 2.. etc
     }
 map_types = {0:"base", 1:"mini", 2:"tournament"}
 enemy_types = {"W":0,"AB":1,"MCTS":2,"VF":3,"MIX":4} # AB uses a default depth of 2
@@ -13,8 +13,8 @@ model_names = rep_and_models[representation]
 model_name = model_names[0] #change model
 enemy_type = enemy_types["W"] #change enemy
 map_type = map_types[1] #change map
-reward_functions = ["basic_reward_function","my_reward_function"]
-reward_function = reward_functions[0]
+reward_functions = ["my_reward_function","sparse_reward_function"]
+reward = reward_functions[1]
 vps_to_win = 6 #chane number of victory points required to win
 num_enemies = 3 #change the number of enemy bots
 num_players = num_enemies + 1
