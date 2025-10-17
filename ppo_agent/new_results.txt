@@ -1,0 +1,127 @@
+rep_and_models = {
+    "vector":["mlp_ppo"], # "0" vector only models. model 0, 1, 2.. etc
+    "mixed":["combined_ppo"] # "1" mixed only models. model 0, 1, 2.. etc
+    }
+map_types = {0:"base", 1:"mini", 2:"tournament"}
+enemy_types = {"W":0,"AB":1,"MCTS":2,"VF":3,"MIX":4} # AB uses a default depth of 2
+rewards = {"win":100, "lose":-100, "l_positive":1, "s_positive":0.01, "s_negative":-0.01, "move_penalty":-0.5,"none":0, 
+           "current_vp":0.2, "longest_road_length":0.005, "roads_left":0.01, "settlements_left":0.01, "cities_left":0.03,
+           "played_dev_card":0.1, "has_largest_army":0.2, "has_longest_road":0.2}
+representations = list(rep_and_models.keys())
+representation = representations[1] #change representation
+model_names = rep_and_models[representation]
+model_name = model_names[0] #change model
+enemy_type = enemy_types["W"] #change enemy
+map_type = map_types[1] #change map
+vps_to_win = 6 #chane number of victory points required to win
+num_enemies = 3 #change the number of enemy bots
+num_players = num_enemies + 1
+train_timesteps = 1_000_000 #change how long to train agent for
+eval_episodes = 1_000 #change how many episodes the agent is evaluated for
+train_model = True #boolean for whether the model is trained
+evaluate_model = True #boolean if evaluated
+show_model_policy = False #boolean for model policy
+train_further = False #train an existing model further
+use_best_model = False #whether or not the best model is used to evaluate
+
+model = MaskablePPO(
+            MaskableActorCriticPolicy,
+            env,
+            policy_kwargs=policy_kwargs,
+            verbose=1,
+            learning_rate=1e-4,
+            # learning_rate=linear_schedule,
+            n_steps=2048, # experience before update
+            batch_size=128, # size of minibatches creates n_steps/batch_size mini-batches
+            n_epochs=15, # number of times we use n_steps (num games)
+            gamma=0.995, # discount factor
+            gae_lambda=0.95, # generalising advantage estimation
+            clip_range=0.2,
+            clip_range_vf=None,
+            ent_coef=0.01, # encourages exploration by adding entropy bonus to the loss
+            vf_coef=0.5, # weight of value function loss relative to policy loss
+            max_grad_norm=0.1, # clips gradient to prevent exploding gradient problem
+            tensorboard_log=log_dir, # log training for later viewing
+        )
+
+combined_ppo run 1:
+Win Rate: 58.50%
+Average Reward: 37.41
+Wins: 585, Losses: 415
+Min/Max Reward: -105.09/225.52
+total evaluation time: 23695.695193 seconds
+
+run 2:
+Win Rate: 53.80%
+Average Reward: 26.97
+Wins: 538, Losses: 462
+Min/Max Reward: -108.98/224.63
+total evaluation time: 307.414432 seconds
+
+run 3:
+Win Rate: 50.40%
+Average Reward: 20.38
+Wins: 504, Losses: 496
+Min/Max Reward: -109.91/225.67
+total evaluation time: 363.834355 seconds
+
+run 4:
+Win Rate: 51.40%
+Average Reward: 21.76
+Wins: 514, Losses: 486
+Min/Max Reward: -107.80/217.76
+total evaluation time: 325.824675 seconds
+
+run 5:
+Win Rate: 55.90%
+Average Reward: 31.18
+Wins: 559, Losses: 441
+Min/Max Reward: -106.77/267.01
+total evaluation time: 308.688925 seconds
+
+mlp_ppo run 1:
+Win Rate: 49.70%
+Average Reward: 16.88
+Wins: 497, Losses: 503
+Min/Max Reward: -109.19/216.06
+total evaluation time: 182.208979 seconds
+
+run 2:
+Win Rate: 50.80%
+Average Reward: 19.80
+Wins: 508, Losses: 492
+Min/Max Reward: -109.74/209.04
+total evaluation time: 180.200869 seconds
+
+run 3:
+Win Rate: 52.60%
+Average Reward: 22.03
+Wins: 526, Losses: 474
+Min/Max Reward: -106.02/200.28
+total evaluation time: 176.695387 seconds
+
+run 4:
+Win Rate: 56.60%
+Average Reward: 30.16
+Wins: 566, Losses: 434
+Min/Max Reward: -105.44/202.45
+total evaluation time: 174.665650 seconds
+
+run 5:
+Win Rate: 46.90%
+Average Reward: 11.08
+Wins: 469, Losses: 531
+Min/Max Reward: -107.54/190.20
+total evaluation time: 188.773321 seconds
+
+combined model but
+changed
+nn.AdaptiveAvgPool2d((3, 2)),  # Fixed output size
+to
+nn.AdaptiveAvgPool2d((6, 4)),  # Increased output spatial size (height x width)
+Evaluation Results:
+Win Rate: 51.50%
+Average Reward: 20.94
+Wins: 515, Losses: 485
+Min/Max Reward: -107.55/199.36
+total evaluation time: 321.486890 seconds

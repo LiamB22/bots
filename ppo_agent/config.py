@@ -8,11 +8,13 @@ rewards = {"win":100, "lose":-100, "l_positive":1, "s_positive":0.01, "s_negativ
            "current_vp":0.2, "longest_road_length":0.005, "roads_left":0.01, "settlements_left":0.01, "cities_left":0.03,
            "played_dev_card":0.1, "has_largest_army":0.2, "has_longest_road":0.2}
 representations = list(rep_and_models.keys())
-representation = representations[1] #change representation
+representation = representations[0] #change representation
 model_names = rep_and_models[representation]
 model_name = model_names[0] #change model
 enemy_type = enemy_types["W"] #change enemy
 map_type = map_types[1] #change map
+reward_functions = ["basic_reward_function","my_reward_function"]
+reward_function = reward_functions[0]
 vps_to_win = 6 #chane number of victory points required to win
 num_enemies = 3 #change the number of enemy bots
 num_players = num_enemies + 1

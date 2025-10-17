@@ -332,3 +332,17 @@ Average Reward: 30.06
 Wins: 546, Losses: 454
 Min/Max Reward: -107.12/214.20
 total evaluation time: 27212.471221 seconds
+
+combined with 2 extra cnn layers, swapped out one WR player for VF player:
+Win Rate: 7.80%
+Average Reward: -80.67
+Wins: 78, Losses: 922
+Min/Max Reward: -104.25/142.22
+total evaluation time: 316.110646 seconds
+
+vector with 2 WR players and one VF after being trained on 3 VF:
+Win Rate: 10.50%
+Average Reward: -74.79
+Wins: 105, Losses: 895
+Min/Max Reward: -105.45/142.62
+total evaluation time: 198.048210 seconds

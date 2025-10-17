@@ -6,7 +6,7 @@ class COMBINED(BaseFeaturesExtractor):
     def __init__(self, observation_space, features_dim=512, cnn_features_dim=256, mlp_features_dim=256):
         super().__init__(observation_space, features_dim)
         
-        # ===== Enhanced CNN for board features =====
+        # CNN for board features
         self.cnn = nn.Sequential(
             nn.Conv2d(observation_space['board'].shape[0], 64, kernel_size=3, stride=1, padding=1),
             nn.BatchNorm2d(64),
@@ -27,18 +27,19 @@ class COMBINED(BaseFeaturesExtractor):
             nn.Conv2d(128, 256, kernel_size=3, stride=1, padding=1),
             nn.BatchNorm2d(256),
             nn.ReLU(),
-            nn.Conv2d(256, 256, kernel_size=3, stride=1, padding=1),  # Added layer 1
-            nn.BatchNorm2d(256),                                      # Added layer 1
+            nn.Conv2d(256, 256, kernel_size=3, stride=1, padding=1),  
+            nn.BatchNorm2d(256),                                      
             nn.ReLU(),
-            nn.Conv2d(256, 256, kernel_size=3, stride=1, padding=1),  # Added layer 2
-            nn.BatchNorm2d(256),                                      # Added layer 2
+            nn.Conv2d(256, 256, kernel_size=3, stride=1, padding=1),  
+            nn.BatchNorm2d(256),                                      
             nn.ReLU(),
             nn.AdaptiveAvgPool2d((3, 2)),  # Fixed output size
             nn.Flatten(),
         )
         
-        # Fixed CNN output size calculation
-        cnn_output_size = 256 * 3 * 2  # 1536
+        with torch.no_grad():
+            sample_board = torch.randn(1, *observation_space['board'].shape)
+            cnn_output_size = self.cnn(sample_board).shape[1]
         
         self.cnn_fc = nn.Sequential(
             nn.Linear(cnn_output_size, cnn_features_dim),
@@ -47,7 +48,7 @@ class COMBINED(BaseFeaturesExtractor):
             nn.Dropout(0.1),
         )
         
-        # ===== Enhanced MLP for numeric features =====
+        # MLP for numeric features
         self.mlp = nn.Sequential(
             nn.Linear(observation_space['numeric'].shape[0], 256),
             nn.LayerNorm(256),
@@ -64,7 +65,7 @@ class COMBINED(BaseFeaturesExtractor):
             nn.ReLU(),
         )
         
-        # ===== Combine features with attention mechanism =====
+        # combine features
         self.combine_fc = nn.Sequential(
             nn.Linear(cnn_features_dim + mlp_features_dim, features_dim),
             nn.LayerNorm(features_dim),

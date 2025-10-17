@@ -28,6 +28,18 @@ def mask_fn(env) -> np.ndarray:
 
     return np.array([bool(i) for i in mask])
 
+def basic_reward_function(game, p0_color):
+
+    rewards = config.rewards
+    winning_color = game.winning_color()
+    if winning_color is not None:  # Game ended
+        if p0_color == winning_color:
+            return rewards["win"]
+        else:
+            return rewards["lose"]
+    else:
+        return rewards["none"]
+        
 def my_reward_function(game, p0_color):
     
     rewards = config.rewards
@@ -86,6 +98,7 @@ def make_envs():
     map_type = config.map_type
     vps_to_win = config.vps_to_win
     representation = config.representation
+    reward_function = config.reward_function
 
     enemy_list = get_enemy_list(num_enemies) # gets a list of different players with num_enemies of each type
     enemies = enemy_list[enemy_type] # gets the list of correct enemies according to the number taken from config
@@ -94,7 +107,7 @@ def make_envs():
         "map_type": map_type,
         "vps_to_win": vps_to_win,
         "enemies": enemies,
-        "reward_function": my_reward_function,
+        "reward_function": reward_function,
         "representation": representation,
     }
     
@@ -223,7 +236,7 @@ def get_enemy_list(num_enemies):
         ],
         [
             WeightedRandomPlayer(Color.RED),
-            MCTSPlayer(Color.ORANGE),
+            WeightedRandomPlayer(Color.ORANGE),
             ValueFunctionPlayer(Color.WHITE)
         ],
     ]
