@@ -233,7 +233,40 @@ Min/Max Reward: -107.06/267.37
 total evaluation time: 210.762035 seconds
 
 250 000 time steps:
+mlp_ppo run 1:
+Win Rate: 49.90%
+Average Reward: 16.09
+Wins: 499, Losses: 501
+Min/Max Reward: -106.89/209.58
+total evaluation time: 189.897614 seconds
 
+run 2:
+Win Rate: 45.80%
+Average Reward: 8.29
+Wins: 458, Losses: 542
+Min/Max Reward: -108.36/195.59
+total evaluation time: 192.026174 seconds
+
+run 3:
+Win Rate: 38.30%
+Average Reward: -6.44
+Wins: 383, Losses: 617
+Min/Max Reward: -108.66/217.15
+total evaluation time: 210.426384 seconds
+
+run 4:
+Win Rate: 43.50%
+Average Reward: 0.50
+Wins: 435, Losses: 565
+Min/Max Reward: -110.25/254.12
+total evaluation time: 204.354629 seconds
+
+run 5:
+Win Rate: 47.10%
+Average Reward: 11.25
+Wins: 471, Losses: 529
+Min/Max Reward: -107.19/199.11
+total evaluation time: 211.208973 seconds
 
 500 000 time steps:
 
