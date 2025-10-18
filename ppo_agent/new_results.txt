@@ -119,6 +119,7 @@ Wins: 435, Losses: 565
 Min/Max Reward: -106.62/212.64
 total evaluation time: 338.484939 seconds
 
+500 000 time steps:
 
 1 000 000 time steps:
 
@@ -196,9 +197,49 @@ total evaluation time: 305.736852 seconds
 MLP ==================================================
 125 000 time steps:
 
+mlp_ppo run 1:
+Win Rate: 43.80%
+Average Reward: 5.61
+Wins: 438, Losses: 562
+Min/Max Reward: -109.41/205.01
+total evaluation time: 209.317295 seconds
+
+run 2:
+Win Rate: 43.30%
+Average Reward: 5.89
+Wins: 433, Losses: 567
+Min/Max Reward: -107.53/225.54
+total evaluation time: 207.278473 seconds
+
+run 3:
+Win Rate: 45.00%
+Average Reward: 7.13
+Wins: 450, Losses: 550
+Min/Max Reward: -105.76/211.24
+total evaluation time: 195.969641 seconds
+
+run 4:
+Win Rate: 48.90%
+Average Reward: 15.33
+Wins: 489, Losses: 511
+Min/Max Reward: -106.40/225.61
+total evaluation time: 185.677346 seconds
+
+run 5:
+Win Rate: 26.80%
+Average Reward: -30.91
+Wins: 268, Losses: 732
+Min/Max Reward: -107.06/267.37
+total evaluation time: 210.762035 seconds
+
+250 000 time steps:
+
+
+500 000 time steps:
 
 
 1 000 000 time steps:
+
 mlp_ppo run 1:
 Win Rate: 49.70%
 Average Reward: 16.88
@@ -270,6 +311,11 @@ Average Reward: 7.60
 Wins: 538, Losses: 462
 Min/Max Reward: -100.00/100.00
 total evaluation time: 181.956277 seconds
+
+
+
+
+
 
 combined model but
 changed
