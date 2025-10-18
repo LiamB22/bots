@@ -37,8 +37,7 @@ def sparse_reward_function(game, p0_color):
             return rewards["win"]
         else:
             return rewards["lose"]
-    else:
-        return rewards["none"]
+    return rewards["none"]
         
 def my_reward_function(game, p0_color):
     

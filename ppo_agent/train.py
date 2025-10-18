@@ -15,7 +15,7 @@ from networks import COMBINED, BOARD_ONLY, NUMERIC_ONLY
 
 def main():
     
-    for _ in range(5):
+    for _ in range(3):
         train_timesteps = config.train_timesteps
         model_name = config.model_name
         model_names = config.model_names

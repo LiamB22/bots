@@ -81,17 +81,40 @@ Min/Max Reward: -106.77/267.01
 total evaluation time: 308.688925 seconds
 
 combined with sparse rewards run 1:
+Win Rate: 54.60%
+Average Reward: 9.20
+Wins: 546, Losses: 454
+Min/Max Reward: -100.00/100.00
+total evaluation time: 407.823350 seconds
 
 run 2:
-
+Win Rate: 54.00%
+Average Reward: 8.00
+Wins: 540, Losses: 460
+Min/Max Reward: -100.00/100.00
+total evaluation time: 354.562216 seconds
 
 run 3:
-
+Win Rate: 57.70%
+Average Reward: 15.40
+Wins: 577, Losses: 423
+Min/Max Reward: -100.00/100.00
+total evaluation time: 295.539402 seconds
 
 run 4:
-
+Win Rate: 50.30%
+Average Reward: 0.60
+Wins: 503, Losses: 497
+Min/Max Reward: -100.00/100.00
+total evaluation time: 319.248784 seconds
 
 run 5:
+Win Rate: 51.90%
+Average Reward: 3.80
+Wins: 519, Losses: 481
+Min/Max Reward: -100.00/100.00
+total evaluation time: 305.736852 seconds
+
 
 MLP ==================================================
 mlp_ppo run 1:
