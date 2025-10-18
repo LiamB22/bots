@@ -39,7 +39,7 @@ def sparse_reward_function(game, p0_color):
             return rewards["lose"]
     return rewards["none"]
         
-def my_reward_function(game, p0_color):
+def dense_reward_function(game, p0_color):
     
     rewards = config.rewards
     starting_cities = 4
@@ -100,7 +100,7 @@ def make_envs():
     reward_functions = config.reward_functions
     reward = config.reward
     if reward == reward_functions[0]:
-        reward_function = my_reward_function
+        reward_function = dense_reward_function
     else:
         reward_function = sparse_reward_function
 

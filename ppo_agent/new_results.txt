@@ -45,6 +45,45 @@ model = MaskablePPO(
         )
 
 COMBINED ==================================================
+125 000 time steps:
+
+combined_ppo run 1:
+Win Rate: 43.30%
+Average Reward: 2.53
+Wins: 433, Losses: 567
+Min/Max Reward: -107.81/180.51
+total evaluation time: 363.491634 seconds
+
+run 2:
+Win Rate: 41.80%
+Average Reward: 1.09
+Wins: 418, Losses: 582
+Min/Max Reward: -107.42/224.33
+total evaluation time: 379.738774 seconds
+
+run 3:
+Win Rate: 36.80%
+Average Reward: -10.21
+Wins: 368, Losses: 632
+Min/Max Reward: -105.74/203.72
+total evaluation time: 348.777534 seconds
+
+run 4:
+Win Rate: 40.10%
+Average Reward: -3.26
+Wins: 401, Losses: 599
+Min/Max Reward: -108.83/211.79
+total evaluation time: 346.185365 seconds
+
+run 5:
+Win Rate: 26.00%
+Average Reward: -35.69
+Wins: 260, Losses: 740
+Min/Max Reward: -110.26/225.03
+total evaluation time: 354.928537 seconds
+
+1 000 000 time steps:
+
 combined_ppo run 1:
 Win Rate: 58.50%
 Average Reward: 37.41
@@ -117,6 +156,11 @@ total evaluation time: 305.736852 seconds
 
 
 MLP ==================================================
+125 000 time steps:
+
+
+
+1 000 000 time steps:
 mlp_ppo run 1:
 Win Rate: 49.70%
 Average Reward: 16.88
