@@ -7,22 +7,11 @@ enemy_types = {"W":0,"AB":1,"MCTS":2,"VF":3,"MIX":4} # AB uses a default depth o
 rewards = {"win":100, "lose":-100, "l_positive":1, "s_positive":0.01, "s_negative":-0.01, "move_penalty":-0.5,"none":0, 
            "current_vp":0.2, "longest_road_length":0.005, "roads_left":0.01, "settlements_left":0.01, "cities_left":0.03,
            "played_dev_card":0.1, "has_largest_army":0.2, "has_longest_road":0.2}
-representations = list(rep_and_models.keys())
-representation = representations[1] #change representation
-model_names = rep_and_models[representation]
-model_name = model_names[0] #change model
 enemy_type = enemy_types["W"] #change enemy
 map_type = map_types[1] #change map
 vps_to_win = 6 #chane number of victory points required to win
 num_enemies = 3 #change the number of enemy bots
-num_players = num_enemies + 1
-train_timesteps = 1_000_000 #change how long to train agent for
 eval_episodes = 1_000 #change how many episodes the agent is evaluated for
-train_model = True #boolean for whether the model is trained
-evaluate_model = True #boolean if evaluated
-show_model_policy = False #boolean for model policy
-train_further = False #train an existing model further
-use_best_model = False #whether or not the best model is used to evaluate
 
 model = MaskablePPO(
             MaskableActorCriticPolicy,
@@ -120,6 +109,7 @@ Min/Max Reward: -106.62/212.64
 total evaluation time: 338.484939 seconds
 
 500 000 time steps:
+
 combined_ppo run 1:
 Win Rate: 47.70%
 Average Reward: 15.07
@@ -192,7 +182,11 @@ Wins: 559, Losses: 441
 Min/Max Reward: -106.77/267.01
 total evaluation time: 308.688925 seconds
 
-combined with sparse rewards run 1:
+combined with sparse rewards:
+
+1 000 000 time steps:
+
+run 1:
 Win Rate: 54.60%
 Average Reward: 9.20
 Wins: 546, Losses: 454
@@ -267,6 +261,7 @@ Min/Max Reward: -107.06/267.37
 total evaluation time: 210.762035 seconds
 
 250 000 time steps:
+
 mlp_ppo run 1:
 Win Rate: 49.90%
 Average Reward: 16.09
@@ -333,6 +328,11 @@ Min/Max Reward: -112.78/198.49
 total evaluation time: 193.378223 seconds
 
 run 5:
+Win Rate: 50.90%
+Average Reward: 18.60
+Wins: 509, Losses: 491
+Min/Max Reward: -107.82/232.01
+total evaluation time: 186.811148 seconds
 
 1 000 000 time steps:
 
@@ -371,9 +371,11 @@ Wins: 469, Losses: 531
 Min/Max Reward: -107.54/190.20
 total evaluation time: 188.773321 seconds
 
+mlp_ppo with sparse rewards:
 
-mlp_ppo with sparse rewards run 1:
-Evaluation Results:
+1 000 000 time steps:
+
+run 1:
 Win Rate: 51.50%
 Average Reward: 3.00
 Wins: 515, Losses: 485
