@@ -120,6 +120,40 @@ Min/Max Reward: -106.62/212.64
 total evaluation time: 338.484939 seconds
 
 500 000 time steps:
+combined_ppo run 1:
+Win Rate: 47.70%
+Average Reward: 15.07
+Wins: 477, Losses: 523
+Min/Max Reward: -106.17/247.54
+total evaluation time: 336.689877 seconds
+
+run 2:
+Win Rate: 51.70%
+Average Reward: 21.00
+Wins: 517, Losses: 483
+Min/Max Reward: -108.07/243.75
+total evaluation time: 334.647937 seconds
+
+run 3:
+Win Rate: 47.70%
+Average Reward: 15.17
+Wins: 477, Losses: 523
+Min/Max Reward: -108.07/220.85
+total evaluation time: 344.087929 seconds
+
+run 4:
+Win Rate: 44.60%
+Average Reward: 5.55
+Wins: 446, Losses: 554
+Min/Max Reward: -107.47/213.57
+total evaluation time: 338.124829 seconds
+
+run 5:
+Win Rate: 33.60%
+Average Reward: -19.02
+Wins: 336, Losses: 664
+Min/Max Reward: -120.81/199.65
+total evaluation time: 363.496868 seconds
 
 1 000 000 time steps:
 
@@ -270,6 +304,20 @@ total evaluation time: 211.208973 seconds
 
 500 000 time steps:
 
+mlp_ppo run 1:
+Win Rate: 45.00%
+Average Reward: 7.90
+Wins: 450, Losses: 550
+Min/Max Reward: -105.67/190.85
+total evaluation time: 195.108275 seconds
+
+run 2:
+
+run 3:
+
+run 4:
+
+run 5:
 
 1 000 000 time steps:
 
