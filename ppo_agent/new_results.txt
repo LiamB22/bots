@@ -184,6 +184,71 @@ total evaluation time: 308.688925 seconds
 
 combined with sparse rewards:
 
+125 000 time steps:
+
+run 1:
+Win Rate: 41.30%
+Average Reward: -17.40
+Wins: 413, Losses: 587
+Min/Max Reward: -100.00/100.00
+total evaluation time: 359.272851 seconds
+
+run 2:
+Win Rate: 46.80%
+Average Reward: -6.40
+Wins: 468, Losses: 532
+Min/Max Reward: -100.00/100.00
+total evaluation time: 367.502992 seconds
+
+run 3:
+Win Rate: 32.50%
+Average Reward: -35.00
+Wins: 325, Losses: 675
+Min/Max Reward: -100.00/100.00
+total evaluation time: 370.034611 seconds
+
+run 4:
+Win Rate: 44.00%
+Average Reward: -12.00
+Wins: 440, Losses: 560
+Min/Max Reward: -100.00/100.00
+total evaluation time: 335.951019 seconds
+
+run 5:
+
+
+250 000 time steps:
+
+run 1:
+
+
+run 2:
+
+
+run 3:
+
+
+run 4:
+
+
+run 5:
+
+500 000 time steps:
+
+run 1:
+
+
+run 2:
+
+
+run 3:
+
+
+run 4:
+
+
+run 5:
+
 1 000 000 time steps:
 
 run 1:
@@ -372,6 +437,54 @@ Min/Max Reward: -107.54/190.20
 total evaluation time: 188.773321 seconds
 
 mlp_ppo with sparse rewards:
+
+125 000 time steps:
+
+run 1:
+
+
+run 2:
+
+
+run 3:
+
+
+run 4:
+
+
+run 5:
+
+250 000 time steps:
+
+run 1:
+
+
+run 2:
+
+
+run 3:
+
+
+run 4:
+
+
+run 5:
+
+500 000 time steps:
+
+run 1:
+
+
+run 2:
+
+
+run 3:
+
+
+run 4:
+
+
+run 5:
 
 1 000 000 time steps:
 
