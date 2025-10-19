@@ -215,15 +215,27 @@ Min/Max Reward: -100.00/100.00
 total evaluation time: 335.951019 seconds
 
 run 5:
-
+Win Rate: 32.80%
+Average Reward: -34.40
+Wins: 328, Losses: 672
+Min/Max Reward: -100.00/100.00
+total evaluation time: 351.670618 seconds
 
 250 000 time steps:
 
 run 1:
-
+Win Rate: 41.10%
+Average Reward: -17.80
+Wins: 411, Losses: 589
+Min/Max Reward: -100.00/100.00
+total evaluation time: 384.009883 seconds
 
 run 2:
-
+Win Rate: 38.60%
+Average Reward: -22.80
+Wins: 386, Losses: 614
+Min/Max Reward: -100.00/100.00
+total evaluation time: 377.198425 seconds
 
 run 3:
 
@@ -441,34 +453,76 @@ mlp_ppo with sparse rewards:
 125 000 time steps:
 
 run 1:
-
+Win Rate: 37.40%
+Average Reward: -25.20
+Wins: 374, Losses: 626
+Min/Max Reward: -100.00/100.00
+total evaluation time: 205.090896 seconds
 
 run 2:
-
+Win Rate: 41.00%
+Average Reward: -18.00
+Wins: 410, Losses: 590
+Min/Max Reward: -100.00/100.00
+total evaluation time: 203.591290 seconds
 
 run 3:
-
+Win Rate: 44.40%
+Average Reward: -11.20
+Wins: 444, Losses: 556
+Min/Max Reward: -100.00/100.00
+total evaluation time: 192.292544 seconds
 
 run 4:
-
+Win Rate: 32.20%
+Average Reward: -35.60
+Wins: 322, Losses: 678
+Min/Max Reward: -100.00/100.00
+total evaluation time: 218.645669 seconds
 
 run 5:
+Win Rate: 44.80%
+Average Reward: -10.40
+Wins: 448, Losses: 552
+Min/Max Reward: -100.00/100.00
+total evaluation time: 198.838987 seconds
 
 250 000 time steps:
 
 run 1:
-
+Win Rate: 48.80%
+Average Reward: -2.40
+Wins: 488, Losses: 512
+Min/Max Reward: -100.00/100.00
+total evaluation time: 193.616989 seconds
 
 run 2:
-
+Win Rate: 45.00%
+Average Reward: -10.00
+Wins: 450, Losses: 550
+Min/Max Reward: -100.00/100.00
+total evaluation time: 194.767581 seconds
 
 run 3:
-
+Win Rate: 49.90%
+Average Reward: -0.20
+Wins: 499, Losses: 501
+Min/Max Reward: -100.00/100.00
+total evaluation time: 189.989083 seconds
 
 run 4:
-
+Win Rate: 46.50%
+Average Reward: -7.00
+Wins: 465, Losses: 535
+Min/Max Reward: -100.00/100.00
+total evaluation time: 189.130867 seconds
 
 run 5:
+Win Rate: 47.00%
+Average Reward: -6.00
+Wins: 470, Losses: 530
+Min/Max Reward: -100.00/100.00
+total evaluation time: 186.207506 seconds
 
 500 000 time steps:
 
