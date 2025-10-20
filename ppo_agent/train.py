@@ -44,16 +44,16 @@ def main():
                     mlp_features_dim=256
                 ),
                 net_arch=dict(pi=[256, 128], vf=[256, 128])
-            )],
-            "board_only": [dict(
+            ),
+            dict(
                 features_extractor_class=BOARD_ONLY,
                 features_extractor_kwargs=dict(
                     features_dim=512,
                     cnn_features_dim=512
                 ),
                 net_arch=dict(pi=[256, 128], vf=[256, 128])
-            )],
-            "numeric_only": [dict(
+            ),
+            dict(
                 features_extractor_class=NUMERIC_ONLY,
                 features_extractor_kwargs=dict(
                     features_dim=512,
