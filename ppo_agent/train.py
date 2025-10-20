@@ -87,7 +87,7 @@ def main():
                 MaskableActorCriticPolicy,
                 env,
                 policy_kwargs=policy_kwargs,
-                verbose=0,
+                verbose=2,
                 learning_rate=1e-4,
                 # learning_rate=linear_schedule,
                 n_steps=2048, # experience before update
