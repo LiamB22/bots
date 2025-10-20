@@ -268,15 +268,32 @@ Min/Max Reward: -100.00/100.00
 total evaluation time: 388.913415 seconds
 
 run 2:
-
+Win Rate: 38.40%
+Average Reward: -23.20
+Wins: 384, Losses: 616
+Min/Max Reward: -100.00/100.00
+total evaluation time: 347.079443 seconds
 
 run 3:
-
+Win Rate: 45.80%
+Average Reward: -8.40
+Wins: 458, Losses: 542
+Min/Max Reward: -100.00/100.00
+total evaluation time: 338.971196 seconds
 
 run 4:
-
+Win Rate: 50.60%
+Average Reward: 1.20
+Wins: 506, Losses: 494
+Min/Max Reward: -100.00/100.00
+total evaluation time: 331.958429 seconds
 
 run 5:
+Win Rate: 44.50%
+Average Reward: -11.00
+Wins: 445, Losses: 555
+Min/Max Reward: -100.00/100.00
+total evaluation time: 342.010032 seconds
 
 1 000 000 time steps:
 
