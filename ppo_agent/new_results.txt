@@ -1,6 +1,6 @@
 rep_and_models = {
     "vector":["mlp_ppo"], # "0" vector only models. model 0, 1, 2.. etc
-    "mixed":["combined_ppo"] # "1" mixed only models. model 0, 1, 2.. etc
+    "mixed":["combined_ppo", "board_only", "numeric_only"] # "1" mixed only models. model 0, 1, 2.. etc
     }
 map_types = {0:"base", 1:"mini", 2:"tournament"}
 enemy_types = {"W":0,"AB":1,"MCTS":2,"VF":3,"MIX":4} # AB uses a default depth of 2
@@ -261,7 +261,11 @@ total evaluation time: 377.576838 seconds
 500 000 time steps:
 
 run 1:
-
+Win Rate: 54.10%
+Average Reward: 8.20
+Wins: 541, Losses: 459
+Min/Max Reward: -100.00/100.00
+total evaluation time: 388.913415 seconds
 
 run 2:
 
@@ -540,18 +544,39 @@ total evaluation time: 186.207506 seconds
 500 000 time steps:
 
 run 1:
-
+Win Rate: 41.30%
+Average Reward: -17.40
+Wins: 413, Losses: 587
+Min/Max Reward: -100.00/100.00
+total evaluation time: 210.470249 seconds
 
 run 2:
-
+Win Rate: 52.70%
+Average Reward: 5.40
+Wins: 527, Losses: 473
+Min/Max Reward: -100.00/100.00
+total evaluation time: 196.412421 seconds
 
 run 3:
-
+Win Rate: 44.30%
+Average Reward: -11.40
+Wins: 443, Losses: 557
+Min/Max Reward: -100.00/100.00
+total evaluation time: 218.969450 seconds
 
 run 4:
-
+Win Rate: 53.00%
+Average Reward: 6.00
+Wins: 530, Losses: 470
+Min/Max Reward: -100.00/100.00
+total evaluation time: 202.875601 seconds
 
 run 5:
+Win Rate: 52.00%
+Average Reward: 4.00
+Wins: 520, Losses: 480
+Min/Max Reward: -100.00/100.00
+total evaluation time: 203.951687 seconds
 
 1 000 000 time steps:
 
@@ -589,9 +614,6 @@ Average Reward: 7.60
 Wins: 538, Losses: 462
 Min/Max Reward: -100.00/100.00
 total evaluation time: 181.956277 seconds
-
-
-
 
 
 
