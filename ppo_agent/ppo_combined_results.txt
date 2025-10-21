@@ -382,36 +382,86 @@ total training time: 1021.997209 seconds
 250 000 timesteps:
 
 run 1:
-
+Win Rate: 43.90%
+Average Reward: 4.50
+Wins: 439, Losses: 561
+Min/Max Reward: -101.90/125.50
+total evaluation time: 378.175211 seconds
+total training time: 1975.770622 seconds
 
 run 2:
-
+Win Rate: 42.20%
+Average Reward: 0.99
+Wins: 422, Losses: 578
+Min/Max Reward: -103.30/125.20
+total evaluation time: 431.158695 seconds
+total training time: 1862.661710 seconds
 
 run 3:
-
+Win Rate: 42.60%
+Average Reward: 1.15
+Wins: 426, Losses: 574
+Min/Max Reward: -117.70/128.30
+total evaluation time: 436.534076 seconds
+total training time: 1872.852829 seconds
 
 run 4:
-
+Win Rate: 48.10%
+Average Reward: 12.98
+Wins: 481, Losses: 519
+Min/Max Reward: -105.20/127.60
+total evaluation time: 442.501317 seconds
+total training time: 1997.431411 seconds
 
 run 5:
-
+Win Rate: 46.00%
+Average Reward: 8.60
+Wins: 460, Losses: 540
+Min/Max Reward: -105.00/126.40
+total evaluation time: 431.731942 seconds
+total training time: 2094.542781 seconds
 
 500 000 timesteps:
 
 run 1:
-
+Win Rate: 45.50%
+Average Reward: 7.83
+Wins: 455, Losses: 545
+Min/Max Reward: -107.80/126.60
+total evaluation time: 397.324060 seconds
+total training time: 4036.148153 seconds
 
 run 2:
-
+Win Rate: 46.30%
+Average Reward: 8.97
+Wins: 463, Losses: 537
+Min/Max Reward: -100.00/127.50
+total evaluation time: 394.791628 seconds
+total training time: 3697.331407 seconds
 
 run 3:
-
+Win Rate: 39.10%
+Average Reward: -5.74
+Wins: 391, Losses: 609
+Min/Max Reward: -103.50/126.00
+total evaluation time: 456.798133 seconds
+total training time: 4015.250367 seconds
 
 run 4:
-
+Win Rate: 50.70%
+Average Reward: 18.73
+Wins: 507, Losses: 493
+Min/Max Reward: -96.50/125.80
+total evaluation time: 421.476269 seconds
+total training time: 4174.190357 seconds
 
 run 5:
-
+Win Rate: 49.60%
+Average Reward: 16.01
+Wins: 496, Losses: 504
+Min/Max Reward: -102.30/125.60
+total evaluation time: 433.499113 seconds
+total training time: 4324.972091 seconds
 
 1 000 000 timesteps:
 
