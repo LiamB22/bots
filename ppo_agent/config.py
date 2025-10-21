@@ -16,7 +16,7 @@ rewards_list = [
 ]
 rewards = rewards_list[1]
 representations = list(rep_and_models.keys())
-representation = representations[0] #change representation
+representation = representations[1] #change representation
 model_names = rep_and_models[representation]
 model_name = model_names[0] #change model
 enemy_type = enemy_types["W"] #change enemy
@@ -27,7 +27,7 @@ vps_to_win = 6 #chane number of victory points required to win
 num_enemies = 3 #change the number of enemy bots
 num_players = num_enemies + 1
 train_timesteps_list = [125_000, 250_000, 500_000, 1_000_000]
-train_timesteps = train_timesteps_list[0] #change how long to train agent for
+train_timesteps = train_timesteps_list[1] #change how long to train agent for
 eval_episodes = 1_000 #change how many episodes the agent is evaluated for
 train_model = True #boolean for whether the model is trained
 evaluate_model = True #boolean if evaluated
