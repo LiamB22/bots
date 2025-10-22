@@ -811,19 +811,44 @@ mlp_ppo with static/alt dense rewards:
 125 000 timesteps:
 
 run 1:
-
+Win Rate: 43.30%
+Average Reward: 2.75
+Wins: 433, Losses: 567
+Min/Max Reward: -107.60/124.50
+total evaluation time: 233.893955 seconds
+total training time: 605.233707 seconds
 
 run 2:
-
+Win Rate: 50.30%
+Average Reward: 17.51
+Wins: 503, Losses: 497
+Min/Max Reward: -99.40/126.00
+total evaluation time: 228.439987 seconds
+total training time: 620.119280 seconds
 
 run 3:
-
+Win Rate: 45.60%
+Average Reward: 8.46
+Wins: 456, Losses: 544
+Min/Max Reward: -96.30/127.20
+total evaluation time: 209.793930 seconds
+total training time: 610.893664 seconds
 
 run 4:
-
+Win Rate: 35.40%
+Average Reward: -13.58
+Wins: 354, Losses: 646
+Min/Max Reward: -101.30/125.30
+total evaluation time: 227.450791 seconds
+total training time: 566.270363 seconds
 
 run 5:
-
+Win Rate: 49.20%
+Average Reward: 15.84
+Wins: 492, Losses: 508
+Min/Max Reward: -103.40/126.00
+total evaluation time: 220.672318 seconds
+total training time: 648.842281 seconds
 
 250 000 timesteps:
 
@@ -862,19 +887,44 @@ run 5:
 1 000 000 timesteps:
 
 run 1:
-
+Win Rate: 54.30%
+Average Reward: 25.41
+Wins: 543, Losses: 457
+Min/Max Reward: -104.10/126.60
+total evaluation time: 199.766701 seconds
+total training time: 4514.203129 seconds
 
 run 2:
-
+Win Rate: 50.70%
+Average Reward: 18.81
+Wins: 507, Losses: 493
+Min/Max Reward: -97.20/126.00
+total evaluation time: 195.303978 seconds
+total training time: 4538.076076 seconds
 
 run 3:
-
+Win Rate: 58.90%
+Average Reward: 35.48
+Wins: 589, Losses: 411
+Min/Max Reward: -98.70/127.60
+total evaluation time: 191.921920 seconds
+total training time: 4488.395287 seconds
 
 run 4:
-
+Win Rate: 57.90%
+Average Reward: 33.27
+Wins: 579, Losses: 421
+Min/Max Reward: -99.50/128.60
+total evaluation time: 221.422974 seconds
+total training time: 4655.928499 seconds
 
 run 5:
-
+Win Rate: 55.60%
+Average Reward: 28.51
+Wins: 556, Losses: 444
+Min/Max Reward: -106.10/126.90
+total evaluation time: 216.389163 seconds
+total training time: 4977.677403 seconds
 
 
 combined model but
