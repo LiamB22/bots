@@ -269,8 +269,12 @@ run 5:
 1 000 000 timesteps:
 
 run 1:
-
-
+Win Rate: 51.30%
+Average Reward: 2.60
+Wins: 513, Losses: 487
+Min/Max Reward: -100.00/100.00
+total evaluation time: 345.541497 seconds
+total training time: 7516.878179 seconds
 
 run 2:
 
