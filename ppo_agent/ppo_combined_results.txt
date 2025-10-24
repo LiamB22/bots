@@ -989,3 +989,58 @@ Wins: 515, Losses: 485
 Min/Max Reward: -107.55/199.36
 total evaluation time: 321.486890 seconds
 
+extra:
+Best model saved successfully
+total training time: 571.640117 seconds
+Best model loaded successfully
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1000/1000 [03:38<00:00,  4.58it/s]
+Evaluation Results:
+Win Rate: 38.70%
+Average Reward: -22.60
+Wins: 387, Losses: 613
+Min/Max Reward: -100.00/100.00
+total evaluation time: 218.417233 seconds
+Training mlp_ppo
+Best model saved successfully
+total training time: 573.653305 seconds
+Best model loaded successfully
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1000/1000 [03:16<00:00,  5.08it/s]
+Evaluation Results:
+Win Rate: 46.80%
+Average Reward: -6.40
+Wins: 468, Losses: 532
+Min/Max Reward: -100.00/100.00
+total evaluation time: 196.873842 seconds
+Training mlp_ppo
+Best model saved successfully
+total training time: 592.034764 seconds
+Best model loaded successfully
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1000/1000 [03:30<00:00,  4.76it/s]
+Evaluation Results:
+Win Rate: 42.60%
+Average Reward: -14.80
+Wins: 426, Losses: 574
+Min/Max Reward: -100.00/100.00
+total evaluation time: 210.017315 seconds
+Training mlp_ppo
+Best model saved successfully
+total training time: 574.440792 seconds
+Best model loaded successfully
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1000/1000 [03:31<00:00,  4.72it/s]
+Evaluation Results:
+Win Rate: 46.00%
+Average Reward: -8.00
+Wins: 460, Losses: 540
+Min/Max Reward: -100.00/100.00
+total evaluation time: 211.847715 seconds
+Training mlp_ppo
+Best model saved successfully
+total training time: 586.805520 seconds
+Best model loaded successfully
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1000/1000 [03:31<00:00,  4.74it/s]
+Evaluation Results:
+Win Rate: 46.40%
+Average Reward: -7.20
+Wins: 464, Losses: 536
+Min/Max Reward: -100.00/100.00
+total evaluation time: 211.114043 seconds
