@@ -1044,3 +1044,26 @@ Average Reward: -7.20
 Wins: 464, Losses: 536
 Min/Max Reward: -100.00/100.00
 total evaluation time: 211.114043 seconds
+
+
+mlp combined 2 000 000 with alt dense:
+total training time: 14658.909508 seconds
+Best model loaded successfully
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1000/1000 [06:10<00:00,  2.70it/s]
+Evaluation Results:
+Win Rate: 54.90%
+Average Reward: 27.78
+Wins: 549, Losses: 451
+Min/Max Reward: -95.90/127.00
+total evaluation time: 370.061785 seconds
+Training combined_ppo
+Best model saved successfully
+total training time: 14291.271578 seconds
+Best model loaded successfully
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1000/1000 [05:58<00:00,  2.79it/s]
+Evaluation Results:
+Win Rate: 57.50%
+Average Reward: 32.99
+Wins: 575, Losses: 425
+Min/Max Reward: -94.80/128.70
+total evaluation time: 358.922432 seconds
