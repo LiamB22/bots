@@ -1,94 +1,5 @@
 BOARD ONLY =============================================
-DENSE---------------------------------------------------
-125 000 timesteps:
 
-run 1:
-
-
-
-run 2:
-
-
-
-run 3:
-
-
-
-run 4:
-
-
-
-run 5:
-
-
-
-250 000 timesteps:
-
-run 1:
-
-
-
-run 2:
-
-
-
-run 3:
-
-
-
-run 4:
-
-
-
-run 5:
-
-
-
-500 000 timesteps:
-
-run 1:
-
-
-
-run 2:
-
-
-
-run 3:
-
-
-
-run 4:
-
-
-
-run 5:
-
-
-
-1 000 000 timesteps:
-
-run 1:
-
-
-
-run 2:
-
-
-
-run 3:
-
-
-
-run 4:
-
-
-
-run 5:
-
-
-
---------------------------------------------------------
 ALT DENSE-----------------------------------------------
 125 000 timesteps:
 
@@ -392,96 +303,7 @@ total training time: 6536.771307 seconds
 ========================================================
 
 NUMERIC ONLY ===========================================
-DENSE---------------------------------------------------
-125 000 timesteps:
 
-run 1:
-
-
-
-run 2:
-
-
-
-run 3:
-
-
-
-run 4:
-
-
-
-run 5:
-
-
-
-250 000 timesteps:
-
-run 1:
-
-
-
-run 2:
-
-
-
-run 3:
-
-
-
-run 4:
-
-
-
-run 5:
-
-
-
-500 000 timesteps:
-
-run 1:
-
-
-
-run 2:
-
-
-
-run 3:
-
-
-
-run 4:
-
-
-
-run 5:
-
-
-
-1 000 000 timesteps:
-
-run 1:
-
-
-
-run 2:
-
-
-
-run 3:
-
-
-
-run 4:
-
-
-
-run 5:
-
-
-
---------------------------------------------------------
 ALT DENSE-----------------------------------------------
 125 000 timesteps:
 
@@ -618,24 +440,44 @@ total training time: 659.560315 seconds
 250 000 timesteps:
 
 run 1:
-
-
+Win Rate: 41.10%
+Average Reward: -17.80
+Wins: 411, Losses: 589
+Min/Max Reward: -100.00/100.00
+total evaluation time: 259.773572 seconds
+total training time: 1411.079497 seconds
 
 run 2:
-
-
+Win Rate: 32.80%
+Average Reward: -34.40
+Wins: 328, Losses: 672
+Min/Max Reward: -100.00/100.00
+total evaluation time: 278.161788 seconds
+total training time: 1430.288851 seconds
 
 run 3:
-
-
+Win Rate: 42.50%
+Average Reward: -15.00
+Wins: 425, Losses: 575
+Min/Max Reward: -100.00/100.00
+total evaluation time: 264.297963 seconds
+total training time: 1497.293596 seconds
 
 run 4:
-
-
+Win Rate: 47.10%
+Average Reward: -5.80
+Wins: 471, Losses: 529
+Min/Max Reward: -100.00/100.00
+total evaluation time: 250.959842 seconds
+total training time: 1367.342113 seconds
 
 run 5:
-
-
+Win Rate: 40.20%
+Average Reward: -19.60
+Wins: 402, Losses: 598
+Min/Max Reward: -100.00/100.00
+total evaluation time: 252.091105 seconds
+total training time: 1362.067606 seconds
 
 500 000 timesteps:
 

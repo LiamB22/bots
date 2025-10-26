@@ -989,7 +989,7 @@ Wins: 515, Losses: 485
 Min/Max Reward: -107.55/199.36
 total evaluation time: 321.486890 seconds
 
-extra:
+extra mlp_ppo 125 000:
 Best model saved successfully
 total training time: 571.640117 seconds
 Best model loaded successfully
