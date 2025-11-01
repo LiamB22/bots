@@ -352,24 +352,44 @@ run 5:
 500 000 timesteps:
 
 run 1:
-
-
+Win Rate: 51.70%
+Average Reward: 20.40
+Wins: 517, Losses: 483
+Min/Max Reward: -102.20/126.60
+total evaluation time: 394.685940 seconds
+total training time: 3463.142658 seconds
 
 run 2:
-
-
+Win Rate: 42.10%
+Average Reward: 0.18
+Wins: 421, Losses: 579
+Min/Max Reward: -102.00/125.10
+total evaluation time: 349.912853 seconds
+total training time: 3228.505351 seconds
 
 run 3:
-
-
+Win Rate: 51.10%
+Average Reward: 19.59
+Wins: 511, Losses: 489
+Min/Max Reward: -105.00/126.50
+total evaluation time: 316.232521 seconds
+total training time: 3073.484183 seconds
 
 run 4:
-
-
+Win Rate: 39.40%
+Average Reward: -5.14
+Wins: 394, Losses: 606
+Min/Max Reward: -108.50/125.50
+total evaluation time: 351.865178 seconds
+total training time: 3432.469262 seconds
 
 run 5:
-
-
+Win Rate: 45.40%
+Average Reward: 7.64
+Wins: 454, Losses: 546
+Min/Max Reward: -101.90/128.20
+total evaluation time: 352.643116 seconds
+total training time: 3452.340832 seconds
 
 1 000 000 timesteps:
 
@@ -502,8 +522,12 @@ total training time: 1362.067606 seconds
 500 000 timesteps:
 
 run 1:
-
-
+Win Rate: 47.00%
+Average Reward: -6.00
+Wins: 470, Losses: 530
+Min/Max Reward: -100.00/100.00
+total evaluation time: 268.272604 seconds
+total training time: 2834.145812 seconds
 
 run 2:
 
