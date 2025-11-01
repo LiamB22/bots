@@ -4,8 +4,12 @@ ALT DENSE-----------------------------------------------
 125 000 timesteps:
 
 run 1:
-
-
+Win Rate: 43.40%
+Average Reward: 3.69
+Wins: 434, Losses: 566
+Min/Max Reward: -96.30/126.40
+total evaluation time: 405.619752 seconds
+total training time: 946.582420 seconds
 
 run 2:
 
