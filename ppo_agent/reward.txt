@@ -1,0 +1,8 @@
+played_dev_card: False
+current_vp: 3
+longest_road_length: 1
+has_longest_road: False
+has_largest_army: False
+roads_left: 12
+settlements_left: 3
+cities_left: 4
