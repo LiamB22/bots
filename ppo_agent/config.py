@@ -16,13 +16,13 @@ rewards_list = [
 ]
 rewards = rewards_list[1]
 representations = list(rep_and_models.keys())
-representation = representations[1] #change representation
+representation = representations[0] #change representation
 model_names = rep_and_models[representation]
 model_name = model_names[0] #change model
 enemy_type = enemy_types["W"] #change enemy
 map_type = map_types[1] #change map
 reward_functions = ["dense_reward_function","alt_dense_reward_function","sparse_reward_function"]
-reward = reward_functions[1]
+reward = reward_functions[2]
 vps_to_win = 6 #chane number of victory points required to win
 num_enemies = 3 #change the number of enemy bots
 num_players = num_enemies + 1

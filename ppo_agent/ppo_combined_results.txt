@@ -623,6 +623,46 @@ Min/Max Reward: -105.00/126.40
 total evaluation time: 431.731942 seconds
 total training time: 2094.542781 seconds
 
+run 6:
+Win Rate: 39.20%
+Average Reward: -5.77
+Wins: 392, Losses: 608
+Min/Max Reward: -102.60/125.50
+total evaluation time: 414.585151 seconds
+total training time: 2038.703972 seconds
+
+run 7:
+Win Rate: 42.40%
+Average Reward: 0.98
+Wins: 424, Losses: 576
+Min/Max Reward: -103.00/126.50
+total evaluation time: 421.647052 seconds
+total training time: 1899.468229 seconds
+
+run 8:
+Win Rate: 50.50%
+Average Reward: 17.64
+Wins: 505, Losses: 495
+Min/Max Reward: -98.90/126.30
+total evaluation time: 412.905162 seconds
+total training time: 1958.702895 seconds
+
+run 9:
+Win Rate: 43.50%
+Average Reward: 3.34
+Wins: 435, Losses: 565
+Min/Max Reward: -104.50/125.10
+total evaluation time: 423.362407 seconds
+total training time: 1903.949786 seconds
+
+run 10:
+Win Rate: 49.90%
+Average Reward: 16.81
+Wins: 499, Losses: 501
+Min/Max Reward: -104.30/126.10
+total evaluation time: 360.448725 seconds
+total training time: 1864.450845 seconds
+
 500 000 timesteps:
 
 run 1:
@@ -788,6 +828,7 @@ total evaluation time: 396.360447 seconds
 total training time: 7947.200620 seconds
 
 MLP ==================================================
+dense rewards
 125 000 time steps:
 
 mlp_ppo run 1:
