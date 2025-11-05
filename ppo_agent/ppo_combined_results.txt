@@ -35,7 +35,7 @@ model = MaskablePPO(
 
 COMBINED ==================================================
 
-combined with continuous dense rewards:
+DENSE REWARDS----------------------------------------------
 
 125 000 time steps:
 
@@ -185,7 +185,7 @@ Wins: 559, Losses: 441
 Min/Max Reward: -106.77/267.01
 total evaluation time: 308.688925 seconds
 
-combined with sparse rewards:
+SPARSE REWARDS-------------------------------
 
 125 000 time steps:
 
@@ -496,7 +496,7 @@ total evaluation time: 336.233744 seconds
 total training time: 8061.414880 seconds
 
 
-combined with static/alt dense rewards:
+ALT DENSE REWARDS-------------------------------
 
 125 000 timesteps:
 
@@ -540,7 +540,7 @@ Min/Max Reward: -107.20/126.30
 total evaluation time: 458.130342 seconds
 total training time: 1021.997209 seconds
 
-run:
+run 6:
 Win Rate: 37.80%
 Average Reward: -8.20
 Wins: 378, Losses: 622
@@ -548,7 +548,7 @@ Min/Max Reward: -100.00/124.90
 total evaluation time: 490.927178 seconds
 total training time: 1082.890645 seconds
 
-run:
+run 7:
 Win Rate: 42.60%
 Average Reward: 2.12
 Wins: 426, Losses: 574
@@ -556,7 +556,7 @@ Min/Max Reward: -98.30/128.00
 total evaluation time: 462.295894 seconds
 total training time: 1089.062409 seconds
 
-run:
+run 8:
 Win Rate: 37.60%
 Average Reward: -8.27
 Wins: 376, Losses: 624
@@ -564,7 +564,7 @@ Min/Max Reward: -102.40/127.30
 total evaluation time: 423.259386 seconds
 total training time: 1065.789137 seconds
 
-run:
+run 9:
 Win Rate: 41.10%
 Average Reward: -1.18
 Wins: 411, Losses: 589
@@ -572,7 +572,7 @@ Min/Max Reward: -96.10/125.90
 total evaluation time: 427.701682 seconds
 total training time: 1010.119267 seconds
 
-run:
+run 10:
 Win Rate: 37.50%
 Average Reward: -8.93
 Wins: 375, Losses: 625
@@ -828,7 +828,8 @@ total evaluation time: 396.360447 seconds
 total training time: 7947.200620 seconds
 
 MLP ==================================================
-dense rewards
+DENSE REWARDS ----------------------------------------
+
 125 000 time steps:
 
 mlp_ppo run 1:
@@ -977,7 +978,7 @@ Wins: 469, Losses: 531
 Min/Max Reward: -107.54/190.20
 total evaluation time: 188.773321 seconds
 
-mlp_ppo with sparse rewards:
+SPARSE REWARDS-------------------------------
 
 125 000 time steps:
 
@@ -1167,7 +1168,7 @@ Wins: 538, Losses: 462
 Min/Max Reward: -100.00/100.00
 total evaluation time: 181.956277 seconds
 
-mlp_ppo with static/alt dense rewards:
+ALT DENSE REWARDS-------------------------------
 
 125 000 timesteps:
 
@@ -1295,6 +1296,46 @@ Min/Max Reward: -108.60/128.40
 total evaluation time: 256.002384 seconds
 total training time: 2799.035479 seconds
 
+run 6:
+Win Rate: 43.10%
+Average Reward: 2.22
+Wins: 431, Losses: 569
+Min/Max Reward: -109.70/127.40
+total evaluation time: 243.268425 seconds
+total training time: 2516.264001 seconds
+
+run 7:
+Win Rate: 50.40%
+Average Reward: 17.47
+Wins: 504, Losses: 496
+Min/Max Reward: -115.80/126.50
+total evaluation time: 204.869524 seconds
+total training time: 2523.802267 seconds
+
+run 8:
+Win Rate: 36.20%
+Average Reward: -12.21
+Wins: 362, Losses: 638
+Min/Max Reward: -106.40/126.00
+total evaluation time: 220.200017 seconds
+total training time: 2293.834132 seconds
+
+run 9:
+Win Rate: 52.30%
+Average Reward: 21.71
+Wins: 523, Losses: 477
+Min/Max Reward: -94.80/129.50
+total evaluation time: 233.764065 seconds
+total training time: 2551.515417 seconds
+
+run 10:
+Win Rate: 50.90%
+Average Reward: 19.03
+Wins: 509, Losses: 491
+Min/Max Reward: -103.40/127.00
+total evaluation time: 206.967691 seconds
+total training time: 2509.216012 seconds
+
 1 000 000 timesteps:
 
 run 1:
@@ -1376,6 +1417,28 @@ Wins: 509, Losses: 491
 Min/Max Reward: -109.10/125.40
 total evaluation time: 194.664820 seconds
 total training time: 4582.718120 seconds
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 combined model but
