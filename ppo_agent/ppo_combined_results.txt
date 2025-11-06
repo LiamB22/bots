@@ -1248,6 +1248,46 @@ Wins: 538, Losses: 462
 Min/Max Reward: -100.00/100.00
 total evaluation time: 181.956277 seconds
 
+run 6:
+Win Rate: 56.90%
+Average Reward: 13.80
+Wins: 569, Losses: 431
+Min/Max Reward: -100.00/100.00
+total evaluation time: 214.770996 seconds
+total training time: 4710.927746 seconds
+
+run 7:
+Win Rate: 49.20%
+Average Reward: -1.60
+Wins: 492, Losses: 508
+Min/Max Reward: -100.00/100.00
+total evaluation time: 217.261197 seconds
+total training time: 5191.399636 seconds
+
+run 8:
+Win Rate: 52.90%
+Average Reward: 5.80
+Wins: 529, Losses: 471
+Min/Max Reward: -100.00/100.00
+total evaluation time: 201.874979 seconds
+total training time: 5121.124231 seconds
+
+run 9:
+Win Rate: 49.40%
+Average Reward: -1.20
+Wins: 494, Losses: 506
+Min/Max Reward: -100.00/100.00
+total evaluation time: 186.718834 seconds
+total training time: 4381.681171 seconds
+
+run 10:
+Win Rate: 51.10%
+Average Reward: 2.20
+Wins: 511, Losses: 489
+Min/Max Reward: -100.00/100.00
+total evaluation time: 189.840678 seconds
+total training time: 4360.075640 seconds
+
 ALT DENSE REWARDS-------------------------------
 
 125 000 timesteps:
