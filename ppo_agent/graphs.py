@@ -73,8 +73,8 @@ avg_dense5, std_dense5 = avg_std(mixed_dense_5)
 avg_alt5, std_alt5 = avg_std(mixed_alt_dense_5)
 
 plt.figure(figsize=(10,6))
-plt.plot(labels, avg_dense5, marker='o', color=C1, label="Original Dense (5 runs)", linewidth=2)
-plt.plot(labels, avg_alt5, marker='s', color=C2, label="Alt Dense (5 runs)", linewidth=2)
+plt.plot(labels, avg_dense5, marker='o', color=C1, label="Previous Dense (5 runs)", linewidth=2)
+plt.plot(labels, avg_alt5, marker='s', color=C2, label="Improved Dense (5 runs)", linewidth=2)
 
 plt.fill_between(range(len(labels)), 
                  np.array(avg_dense5)-np.array(std_dense5),
@@ -86,7 +86,7 @@ plt.fill_between(range(len(labels)),
                  np.array(avg_alt5)+np.array(std_alt5),
                  alpha=0.2, color=C2)
 
-plt.title("Mixed Agent — Original Dense vs Alt Dense (5 Runs)")
+plt.title("Mixed Agent — Original Dense vs Improved Dense (5 Runs)")
 plt.xlabel("Training Timesteps")
 plt.ylabel("Win Rate (%)")
 plt.legend()
@@ -185,7 +185,7 @@ plt.plot(labels, mixed_sparse_avg, marker='o', linewidth=2, linestyle='--', labe
 plt.plot(labels, vec_dense_avg, marker='s', linewidth=2, label='Vector Dense', color=C2)
 plt.plot(labels, vec_sparse_avg, marker='s', linewidth=2, linestyle='--', label='Vector Sparse', color=C2, alpha=0.7)
 
-plt.title("Complete Agent Performance Comparison — All Reward Types")
+plt.title("Mixed And Vector Agent Performance Comparison")
 plt.xlabel("Training Timesteps")
 plt.ylabel("Win Rate (%)")
 plt.legend()
@@ -390,7 +390,7 @@ plt.figure(figsize=(10,6))
 plt.plot(labels, board_dense_avg, marker='o', linewidth=2, label='Board (Dense)', color=C4)
 plt.plot(labels, numeric_dense_avg, marker='s', linewidth=2, label='Numeric (Dense)', color=C3)
 
-plt.title("Board vs Numeric Agents — Dense Reward (Improved)")
+plt.title("Board vs Numeric Agents — Dense")
 plt.xlabel("Training Timesteps")
 plt.ylabel("Win Rate (%)")
 plt.legend()
@@ -404,7 +404,7 @@ plt.figure(figsize=(10,6))
 plt.plot(labels, board_sparse_avg, marker='o', linewidth=2, label='Board (Sparse)', color=C4)
 plt.plot(labels, numeric_sparse_avg, marker='s', linewidth=2, label='Numeric (Sparse)', color=C3)
 
-plt.title("Board vs Numeric Agents — Sparse Reward")
+plt.title("Board vs Numeric Agents — Sparse")
 plt.xlabel("Training Timesteps")
 plt.ylabel("Win Rate (%)")
 plt.legend()
@@ -422,7 +422,7 @@ plt.plot(labels, board_sparse_avg, marker='o', linewidth=2, linestyle='--', labe
 plt.plot(labels, numeric_dense_avg, marker='s', linewidth=2, label='Numeric Dense', color=C3)
 plt.plot(labels, numeric_sparse_avg, marker='s', linewidth=2, linestyle='--', label='Numeric Sparse', color=C3, alpha=0.7)
 
-plt.title("Complete Agent Performance Comparison — All Reward Types")
+plt.title("Board And Numeric Only Agent Performance Comparison")
 plt.xlabel("Training Timesteps")
 plt.ylabel("Win Rate (%)")
 plt.legend()
@@ -577,7 +577,7 @@ colors_all = [C1, C2, C1, C2, C4, C3, C4, C3]
 plt.figure(figsize=(12,6))
 plt.bar(all_agents, all_means, yerr=all_stds, capsize=5, color=colors_all, alpha=0.8)
 plt.ylabel("Win Rate (%)")
-plt.title("All 8 Agents — Win Rate at 1M Timesteps")
+plt.title("All Agents — Win Rate at 1M Timesteps")
 plt.ylim(15,65)
 plt.xticks(rotation=45)
 plt.tight_layout()
@@ -610,7 +610,7 @@ for median in bp['medians']:
     median.set(color='green', linewidth=2)
 
 plt.ylabel("Win Rate (%)")
-plt.title("All 8 Agents — Distribution at 1M Timesteps")
+plt.title("All Agents — Distribution at 1M Timesteps")
 plt.ylim(15,65)
 plt.xticks(rotation=45)
 plt.tight_layout()
