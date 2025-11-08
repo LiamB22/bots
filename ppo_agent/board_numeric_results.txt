@@ -673,6 +673,46 @@ Min/Max Reward: -97.40/126.50
 total evaluation time: 261.424400 seconds
 total training time: 5632.731730 seconds
 
+run 6:
+Win Rate: 49.70%
+Average Reward: 16.79
+Wins: 497, Losses: 503
+Min/Max Reward: -96.10/128.30
+total evaluation time: 264.488470 seconds
+total training time: 5775.737627 seconds
+
+run 7:
+Win Rate: 47.90%
+Average Reward: 12.85
+Wins: 479, Losses: 521
+Min/Max Reward: -102.20/126.60
+total evaluation time: 267.897009 seconds
+total training time: 5612.166120 seconds
+
+run 8:
+Win Rate: 54.20%
+Average Reward: 25.88
+Wins: 542, Losses: 458
+Min/Max Reward: -105.20/126.50
+total evaluation time: 261.913918 seconds
+total training time: 5587.043928 seconds
+
+run 9:
+Win Rate: 51.60%
+Average Reward: 20.36
+Wins: 516, Losses: 484
+Min/Max Reward: -115.00/126.80
+total evaluation time: 269.540355 seconds
+total training time: 5615.009619 seconds
+
+run 10:
+Win Rate: 49.80%
+Average Reward: 16.13
+Wins: 498, Losses: 502
+Min/Max Reward: -109.00/125.80
+total evaluation time: 280.299089 seconds
+total training time: 5609.505136 seconds
+
 --------------------------------------------------------
 SPARSE--------------------------------------------------
 125 000 timesteps:
