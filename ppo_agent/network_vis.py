@@ -2,7 +2,8 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
 import numpy as np
-
+import os
+os.makedirs("../network_figs", exist_ok=True)
 def visualise_mlp_flatten():
     fig, ax = plt.subplots(figsize=(14, 10))
     ax.set_xlim(0, 10)
@@ -217,6 +218,8 @@ def visualise_combined_extractor():
     draw_box(8.5, 0.2, 2.5, 0.4, 'Value Net\nLinear 128→1', colors['output'], 9, True)
     
     # arrows
+    draw_arrow(2.5, 11.5, 2.5, 11, "#000000", '->', 2.5)
+    draw_arrow(12, 11.5, 12, 11, "#000000", '->', 2.5)
     draw_arrow(7, 2.1, 4.25, 1.6, '#FF6B6B', '->', 2.5)
     draw_arrow(7, 2.1, 9.75, 1.6, '#4ECDC4', '->', 2.5)
     
@@ -318,6 +321,7 @@ def visualise_board_only():
     draw_box(5.7, 0.9, 1.8, 0.35, 'Value Net\n128→1', colors['output'], 9, True)
     
     # arrows
+    draw_arrow(5, 10.1, 5, 9.6, 'black', 2)
     draw_arrow(5, 3.6, 3.4, 1.85, '#FF6B6B', width=2)
     draw_arrow(5, 3.6, 6.6, 1.85, '#4ECDC4', width=2)
     
@@ -406,25 +410,25 @@ def main():
     # 1. MLP Baseline (FlattenExtractor)
     print("\n1. Generating MLP baseline (FlattenExtractor)...")
     fig1 = visualise_mlp_flatten()
-    fig1.savefig('bots/network_figs/mlp_baseline.png', dpi=300, bbox_inches='tight')
+    fig1.savefig('../network_figs/mlp_baseline.png', dpi=300, bbox_inches='tight')
     print("Saved: mlp_baseline.png")
     
     # 2. COMBINED extractor
     print("\n2. Generating COMBINED feature extractor...")
     fig2 = visualise_combined_extractor()
-    fig2.savefig('bots/network_figs/combined.png', dpi=300, bbox_inches='tight')
+    fig2.savefig('../network_figs/combined.png', dpi=300, bbox_inches='tight')
     print("Saved: combined.png")
     
     # 3. BOARD_ONLY extractor
     print("\n3. Generating BOARD_ONLY feature extractor...")
     fig3 = visualise_board_only()
-    fig3.savefig('bots/network_figs/board_only.png', dpi=300, bbox_inches='tight')
+    fig3.savefig('../network_figs/board_only.png', dpi=300, bbox_inches='tight')
     print("Saved: board_only.png")
     
     # 4. NUMERIC_ONLY extractor
     print("\n4. Generating NUMERIC_ONLY feature extractor...")
     fig4 = visualise_numeric_only()
-    fig4.savefig('bots/network_figs/numeric_only.png', dpi=300, bbox_inches='tight')
+    fig4.savefig('../network_figs/numeric_only.png', dpi=300, bbox_inches='tight')
     print("Saved: numeric_only.png")
     
     print("\n" + "="*70)
