@@ -919,6 +919,46 @@ Min/Max Reward: -100.00/100.00
 total evaluation time: 252.091105 seconds
 total training time: 1362.067606 seconds
 
+run 6:
+Win Rate: 37.60%
+Average Reward: -24.80
+Wins: 376, Losses: 624
+Min/Max Reward: -100.00/100.00
+total evaluation time: 277.851779 seconds
+total training time: 1413.160425 seconds
+
+run 7:
+Win Rate: 35.70%
+Average Reward: -28.60
+Wins: 357, Losses: 643
+Min/Max Reward: -100.00/100.00
+total evaluation time: 266.349959 seconds
+total training time: 1384.760689 seconds
+
+run 8:
+Win Rate: 50.50%
+Average Reward: 1.00
+Wins: 505, Losses: 495
+Min/Max Reward: -100.00/100.00
+total evaluation time: 243.163311 seconds
+total training time: 1410.330004 seconds
+
+run 9:
+Win Rate: 44.50%
+Average Reward: -11.00
+Wins: 445, Losses: 555
+Min/Max Reward: -100.00/100.00
+total evaluation time: 263.983764 seconds
+total training time: 1360.905471 seconds
+
+run 10:
+Win Rate: 42.80%
+Average Reward: -14.40
+Wins: 428, Losses: 572
+Min/Max Reward: -100.00/100.00
+total evaluation time: 260.604334 seconds
+total training time: 1371.454950 seconds
+
 500 000 timesteps:
 
 run 1:
