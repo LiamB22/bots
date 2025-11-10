@@ -54,7 +54,7 @@ def alt_dense_reward_function(game, p0_color):
     if winning_color is not None:  # Game ended
         if not reward_file_empty:
             try:
-                # opening with "w" truncates the file, effectively clearing it
+                # opening with "w" truncates the file, clearing it
                 with reward_file_path.open("w"):
                     pass
             except OSError:
@@ -114,20 +114,20 @@ def alt_dense_reward_function(game, p0_color):
         prev_settlements_left = int(prev.get("settlements_left", settlements_left))
         prev_cities_left = int(prev.get("cities_left", cities_left))
 
-        # compute positive deltas (only reward increases)
+        # compute positive changes (only reward increases)
         delta_vp = max(0, current_vp - prev_current_vp)
         delta_longest = max(0, longest_road_length - prev_longest_road_length)
-        # roads/settlements/cities: a decrease in "left" means pieces were placed -> positive change
+        # roads/settlements/cities: a decrease in "left" means pieces were placed
         delta_roads_built = max(0, prev_roads_left - roads_left)
         delta_settlements_built = max(0, prev_settlements_left - settlements_left)
         delta_cities_built = max(0, prev_cities_left - cities_left)
 
-        # booleans: only True if they flipped from False -> True
+        # only True if they flipped from False to True
         gained_longest = (not prev_has_longest_road) and has_longest_road
         gained_army = (not prev_has_largest_army) and has_largest_army
         played_dev_card_gain = (not prev_played_dev_card) and played_dev_card
 
-        # Convert deltas back into the variables used in the later reward formula so only increases are rewarded.
+        # Convert deltas back into the variables used in the later reward so only increases are rewarded.
         current_vp = delta_vp
         longest_road_length = delta_longest
         
@@ -183,7 +183,7 @@ def alt_dense_reward_function(game, p0_color):
     if has_longest_road:
         reward += rewards["has_longest_road"]
 
-    # print a detailed breakdown of the reward components to the terminal
+    # print reward components
     components = {}
     components["current_vp"] = rewards["current_vp"] * current_vp
     components["longest_road_length"] = rewards["longest_road_length"] * longest_road_length

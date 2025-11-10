@@ -85,8 +85,6 @@ def visualise_mlp_flatten():
     ax.text(2.1, 1.5, 'Action Logits\n(290 actions)', ha='center', fontsize=9, style='italic')
     ax.text(7.9, 1.5, 'State Value\n(scalar)', ha='center', fontsize=9, style='italic')
     
-    info_text = "Simple MLP baseline\nFlattened observation\n→ Policy/Value networks"
-    draw_box(0.2, 0.2, 2, 0.8, info_text, '#F0F0F0', 8)
     
     plt.tight_layout()
     return fig
