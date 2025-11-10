@@ -302,38 +302,38 @@ plt.savefig("bots/graphs_1/mixed_vs_vector_box.png", dpi=300)
 #===========================================================
 # Board vs Numeric
 #===========================================================
-numeric_sparse_5 = {
-    125000: [38.00, 38.20, 44.50, 40.20, 36.30],
-    250000: [41.10, 32.80, 42.50, 47.10, 40.20],
-    500000: [47.00, 42.10, 47.00, 43.70, 38.70],
-    1000000: [48.00, 46.00, 46.00, 46.30, 40.00],
+numeric_sparse = {
+    125000: [38.00, 38.20, 44.50, 40.20, 36.30, 31.30, 39.90, 23.20, 38.50, 38.50],
+    250000: [41.10, 32.80, 42.50, 47.10, 40.20, 37.60, 35.70, 50.50, 44.50, 42.80],
+    500000: [47.00, 42.10, 47.00, 43.70, 38.70, 50.70, 36.40, 45.10, 47.40, 43.60],
+    1000000: [48.00, 46.00, 46.00, 46.30, 40.00, 45.70, 48.90, 53.00, 54.30, 41.90],
 }
 
-numeric_alt_dense_5 = {
-    125000: [21.70, 38.00, 46.80, 20.90, 42.40],
-    250000: [45.00, 40.50, 46.10, 42.70, 42.00],
-    500000: [51.70, 42.10, 51.10, 39.40, 45.40],
-    1000000: [46.90, 41.20, 39.80, 51.10, 57.30],
+numeric_alt_dense = {
+    125000: [21.70, 38.00, 46.80, 20.90, 42.40, 34.70, 33.40, 38.40, 29.80, 25.50],
+    250000: [45.00, 40.50, 46.10, 42.70, 42.00, 47.40, 42.70, 52.40, 33.70, 43.70],
+    500000: [51.70, 42.10, 51.10, 39.40, 45.40, 46.50, 40.00, 31.50, 40.60, 47.70],
+    1000000: [46.90, 41.20, 39.80, 51.10, 57.30, 49.70, 47.90, 54.20, 51.60, 49.80],
 }
 
-board_sparse_5 = {
-    125000: [39.60, 36.70, 36.40, 42.90, 51.70],
-    250000: [36.90, 35.60, 41.70, 38.20, 35.20],
-    500000: [46.70, 47.60, 43.10, 46.40, 51.11],
-    1000000: [51.30, 50.50, 57.00, 53.10, 54.30],
+board_sparse = {
+    125000: [39.60, 36.70, 36.40, 42.90, 51.70, 45.30, 36.90, 37.70, 41.30, 42.00],
+    250000: [36.90, 35.60, 41.70, 38.20, 35.20, 37.00, 52.40, 42.00, 40.20, 40.50],
+    500000: [46.70, 47.60, 43.10, 46.40, 51.10, 46.80, 44.30, 44.80, 53.80, 51.20],
+    1000000: [51.30, 50.50, 57.00, 53.10, 54.30, 55.20, 50.30, 49.70, 52.60, 54.90],
 }
 
-board_alt_dense_5 = {
-    125000: [43.40, 36.80, 41.10, 29.60, 35.90],
-    250000: [45.90, 38.60, 43.10, 39.90, 47.30],
-    500000: [47.90, 46.80, 46.90, 48.60, 45.50],
-    1000000: [56.60, 51.80, 56.00, 55.30, 56.00],
+board_alt_dense = {
+    125000: [43.40, 36.80, 41.10, 29.60, 35.90, 38.10, 35.70, 37.50, 40.20, 44.80],
+    250000: [45.90, 38.60, 43.10, 39.90, 47.30, 43.20, 36.60, 37.40, 41.40, 39.00],
+    500000: [47.90, 46.80, 46.90, 48.60, 45.50, 52.10, 51.70, 47.40, 48.90, 53.80],
+    1000000: [56.60, 51.80, 56.00, 55.30, 56.00, 45.80, 57.70, 47.30, 51.20, 46.40],
 }
 
 
 # Board Agent: Improved Dense vs Sparse (10 runs)
-board_dense_avg, board_dense_std = avg_std(board_alt_dense_5)
-board_sparse_avg, board_sparse_std = avg_std(board_sparse_5)
+board_dense_avg, board_dense_std = avg_std(board_alt_dense)
+board_sparse_avg, board_sparse_std = avg_std(board_sparse)
 
 plt.figure(figsize=(10,6))
 plt.plot(labels, board_dense_avg, marker='o', color=C4, label="Dense (Improved)", linewidth=2)
@@ -359,8 +359,8 @@ plt.savefig("bots/graphs_2/board_dense_vs_sparse.png", dpi=300)
 
 
 # Numeric Agent: Improved Dense vs Sparse (10 runs)
-numeric_dense_avg, numeric_dense_std = avg_std(numeric_alt_dense_5)
-numeric_sparse_avg, numeric_sparse_std = avg_std(numeric_sparse_5)
+numeric_dense_avg, numeric_dense_std = avg_std(numeric_alt_dense)
+numeric_sparse_avg, numeric_sparse_std = avg_std(numeric_sparse)
 
 plt.figure(figsize=(10,6))
 plt.plot(labels, numeric_dense_avg, marker='o', color=C4, label="Dense (Improved)", linewidth=2)
@@ -496,16 +496,16 @@ plt.savefig("bots/graphs_2/board_vs_numeric_subplots.png", dpi=300)
 # Board vs Numeric — final timestep (1M)
 agents_bn = ['Board Dense', 'Board Sparse', 'Numeric Dense', 'Numeric Sparse']
 means_bn = [
-    np.mean(board_alt_dense_5[final_t]),
-    np.mean(board_sparse_5[final_t]),
-    np.mean(numeric_alt_dense_5[final_t]),
-    np.mean(numeric_sparse_5[final_t])
+    np.mean(board_alt_dense[final_t]),
+    np.mean(board_sparse[final_t]),
+    np.mean(numeric_alt_dense[final_t]),
+    np.mean(numeric_sparse[final_t])
 ]
 stds_bn = [
-    np.std(board_alt_dense_5[final_t]),
-    np.std(board_sparse_5[final_t]),
-    np.std(numeric_alt_dense_5[final_t]),
-    np.std(numeric_sparse_5[final_t])
+    np.std(board_alt_dense[final_t]),
+    np.std(board_sparse[final_t]),
+    np.std(numeric_alt_dense[final_t]),
+    np.std(numeric_sparse[final_t])
 ]
 
 plt.figure(figsize=(10,6))
@@ -517,10 +517,10 @@ plt.tight_layout()
 plt.savefig("bots/graphs_2/board_vs_numeric_bar.png", dpi=300)
 
 data_bn = [
-    board_alt_dense_5[final_t],
-    board_sparse_5[final_t],
-    numeric_alt_dense_5[final_t],
-    numeric_sparse_5[final_t]
+    board_alt_dense[final_t],
+    board_sparse[final_t],
+    numeric_alt_dense[final_t],
+    numeric_sparse[final_t]
 ]
 
 plt.figure(figsize=(10,6))
@@ -554,10 +554,10 @@ all_means = [
     np.mean(mixed_sparse_10[final_t]),
     np.mean(vector_dense_10[final_t]),
     np.mean(vector_sparse_10[final_t]),
-    np.mean(board_alt_dense_5[final_t]),
-    np.mean(board_sparse_5[final_t]),
-    np.mean(numeric_alt_dense_5[final_t]),
-    np.mean(numeric_sparse_5[final_t])
+    np.mean(board_alt_dense[final_t]),
+    np.mean(board_sparse[final_t]),
+    np.mean(numeric_alt_dense[final_t]),
+    np.mean(numeric_sparse[final_t])
 ]
 
 all_stds = [
@@ -565,10 +565,10 @@ all_stds = [
     np.std(mixed_sparse_10[final_t]),
     np.std(vector_dense_10[final_t]),
     np.std(vector_sparse_10[final_t]),
-    np.std(board_alt_dense_5[final_t]),
-    np.std(board_sparse_5[final_t]),
-    np.std(numeric_alt_dense_5[final_t]),
-    np.std(numeric_sparse_5[final_t])
+    np.std(board_alt_dense[final_t]),
+    np.std(board_sparse[final_t]),
+    np.std(numeric_alt_dense[final_t]),
+    np.std(numeric_sparse[final_t])
 ]
 
 # Color mapping: Dense vs Sparse
@@ -589,10 +589,10 @@ all_data = [
     mixed_sparse_10[final_t],
     vector_dense_10[final_t],
     vector_sparse_10[final_t],
-    board_alt_dense_5[final_t],
-    board_sparse_5[final_t],
-    numeric_alt_dense_5[final_t],
-    numeric_sparse_5[final_t]
+    board_alt_dense[final_t],
+    board_sparse[final_t],
+    numeric_alt_dense[final_t],
+    numeric_sparse[final_t]
 ]
 
 plt.figure(figsize=(12,6))
