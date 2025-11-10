@@ -615,3 +615,81 @@ plt.ylim(15,65)
 plt.xticks(rotation=45)
 plt.tight_layout()
 plt.savefig("bots/graphs/all_agents_box.png", dpi=300)
+
+print("AVERAGE WIN RATES AT 1,000,000 TIMESTEPS")
+print(f"\nMixed Dense:     {np.mean(mixed_dense_10[final_t]):.2f}% (±{np.std(mixed_dense_10[final_t]):.2f})")
+print(f"Mixed Sparse:    {np.mean(mixed_sparse_10[final_t]):.2f}% (±{np.std(mixed_sparse_10[final_t]):.2f})")
+print(f"Vector Dense:    {np.mean(vector_dense_10[final_t]):.2f}% (±{np.std(vector_dense_10[final_t]):.2f})")
+print(f"Vector Sparse:   {np.mean(vector_sparse_10[final_t]):.2f}% (±{np.std(vector_sparse_10[final_t]):.2f})")
+print(f"Board Dense:     {np.mean(board_alt_dense[final_t]):.2f}% (±{np.std(board_alt_dense[final_t]):.2f})")
+print(f"Board Sparse:    {np.mean(board_sparse[final_t]):.2f}% (±{np.std(board_sparse[final_t]):.2f})")
+print(f"Numeric Dense:   {np.mean(numeric_alt_dense[final_t]):.2f}% (±{np.std(numeric_alt_dense[final_t]):.2f})")
+print(f"Numeric Sparse:  {np.mean(numeric_sparse[final_t]):.2f}% (±{np.std(numeric_sparse[final_t]):.2f})")
+
+vector_sparse_train = {
+    125000: [9.6, 10.0, 9.5, 10.0, 10.7],
+    250000: [18.3, 17.9, 17.5, 18.2, 17.7],
+    500000: [39.4, 39.9, 37.8, 37.9, 38.0],
+    1000000: [78.5, 86.5, 85.4, 73.0, 72.7],
+}
+
+vector_dense_train = {
+    125000: [10.1, 10.3, 10.2, 9.4, 10.8, 10.5, 10.6, 9.6, 10.7, 11.3],
+    250000: [20.9, 19.8, 20.5, 21.3, 20.7, 21.0, 20.4, 20.7, 21.1, 20.9],
+    500000: [44.6, 45.8, 43.6, 49.3, 46.7, 41.9, 42.1, 38.2, 42.5, 41.8],
+    1000000: [75.2, 75.6, 74.8, 77.6, 83.0, 78.8, 76.3, 76.2, 77.4, 76.4],
+}
+
+mixed_sparse_train = {
+    125000: [16.7, 19.6, 16.3, 16.3, 16.7],
+    250000: [32.7, 32.8, 32.1, 32.0, 31.0],
+    500000: [60.8, 61.0, 61.0, 60.7, 60.4],
+    1000000: [122.2, 123.0, 122.8, 129.3, 134.4],
+}
+
+mixed_dense_train = {
+    125000: [16.7, 16.4, 15.6, 17.2, 17.0, 18.0, 18.2, 17.8, 16.8, 17.3],
+    250000: [32.9, 31.0, 31.2, 33.3, 34.9, 34.0, 31.7, 32.6, 31.7, 31.1],
+    500000: [67.3, 61.6, 66.9, 69.6, 72.1, 62.5, 63.6, 63.4, 63.2, 63.7],
+    1000000: [123.0, 120.2, 120.8, 122.2, 122.2, 123.4, 124.5, 125.0, 125.3, 132.5],
+}
+
+numeric_sparse_train = {
+    125000: [12.4, 12.2, 12.5, 12.3, 11.0, 12.4, 12.0, 12.2, 12.3, 12.8],
+    250000: [23.5, 23.8, 24.9, 22.8, 22.7, 23.6, 23.1, 23.5, 22.7, 22.9],
+    500000: [47.2, 54.2, 52.5, 46.9, 47.7, 45.4, 44.5, 44.5, 45.5, 47.7],
+    1000000: [88.2, 86.2, 85.6, 85.4, 86.3, 88.6, 87.3, 88.4, 88.5, 88.5],
+}
+
+numeric_dense_train = {
+    125000: [12.9, 13.7, 13.3, 13.0, 12.9, 12.7, 12.6, 13.6, 13.2, 13.8],
+    250000: [25.8, 27.1, 26.9, 25.0, 27.4, 24.5, 26.9, 24.9, 27.7, 25.5],
+    500000: [57.7, 53.8, 51.2, 57.2, 57.5, 48.3, 52.3, 49.6, 52.2, 50.5],
+    1000000: [92.4, 96.1, 93.7, 94.4, 93.9, 96.3, 93.5, 93.1, 93.6, 93.5],
+}
+
+board_sparse_train = {
+    125000: [14.4, 15.6, 16.2, 13.8, 13.9, 15.4, 15.2, 15.4, 14.8, 14.9],
+    250000: [30.5, 32.8, 30.7, 30.3, 30.0, 28.1, 27.4, 29.8, 30.5, 30.4],
+    500000: [60.9, 59.4, 64.0, 68.1, 64.1, 58.1, 59.1, 55.5, 59.7, 56.7],
+    1000000: [125.3, 109.3, 107.7, 108.0, 108.9, 122.5, 114.9, 109.2, 109.7, 109.6],
+}
+
+board_dense_train = {
+    125000: [15.8, 16.1, 16.5, 16.7, 15.8, 16.0, 15.9, 16.0, 15.4, 15.4],
+    250000: [30.4, 29.7, 33.0, 32.8, 32.6, 32.8, 30.3, 32.0, 31.7, 31.6],
+    500000: [57.2, 56.3, 56.6, 57.5, 57.3, 60.9, 63.7, 61.4, 62.4, 61.7],
+    1000000: [113.8, 114.1, 114.9, 114.0, 123.6, 131.1, 118.4, 115.3, 113.9, 114.5],
+}
+
+
+print("AVERAGE TRAINING TIMES AT 1,000,000 TIMESTEPS (minutes)")
+
+print(f"\nMixed Dense:    {np.mean(mixed_dense_train[final_t]):.2f} (±{np.std(mixed_dense_train[final_t]):.2f})")
+print(f"Mixed Sparse:   {np.mean(mixed_sparse_train[final_t]):.2f} (±{np.std(mixed_sparse_train[final_t]):.2f})")
+print(f"Vector Dense:   {np.mean(vector_dense_train[final_t]):.2f} (±{np.std(vector_dense_train[final_t]):.2f})")
+print(f"Vector Sparse:  {np.mean(vector_sparse_train[final_t]):.2f} (±{np.std(vector_sparse_train[final_t]):.2f})")
+print(f"Board Dense:    {np.mean(board_dense_train[final_t]):.2f} (±{np.std(board_dense_train[final_t]):.2f})")
+print(f"Board Sparse:   {np.mean(board_sparse_train[final_t]):.2f} (±{np.std(board_sparse_train[final_t]):.2f})")
+print(f"Numeric Dense:  {np.mean(numeric_dense_train[final_t]):.2f} (±{np.std(numeric_dense_train[final_t]):.2f})")
+print(f"Numeric Sparse: {np.mean(numeric_sparse_train[final_t]):.2f} (±{np.std(numeric_sparse_train[final_t]):.2f})")
